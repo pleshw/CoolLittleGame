@@ -43,10 +43,8 @@ public partial class MovementController(Entity entity, Vector2 initialPosition, 
     }
   }
 
-  public void UpdateMovement(double delta, out bool hasMoved)
+  public void UpdateMovement(double delta)
   {
-    hasMoved = false;
-
     MovementUpdateStarted();
 
     if (TargetPosition is null)

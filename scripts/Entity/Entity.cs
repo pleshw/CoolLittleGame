@@ -26,4 +26,10 @@ public partial class Entity : Node2D
   {
     base._Ready();
   }
+
+  public override void _PhysicsProcess(double delta)
+  {
+    base._PhysicsProcess(delta);
+    MovementController.UpdateMovement(delta);
+  }
 }
