@@ -107,12 +107,14 @@ public partial class InputManager : Node2D
 
   public void SetupCursor()
   {
+    Vector2 shapeSize = new(5, 5);
     CollisionShape2D cursorShape = new()
     {
       Shape = new RectangleShape2D()
       {
-        Size = new Vector2(4.5f, 4.5f)
-      }
+        Size = shapeSize
+      },
+      Position = shapeSize / 2
     };
 
     CursorArea.AddChild(cursorShape);
