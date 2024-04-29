@@ -9,14 +9,13 @@ public partial class Entity : Node2D
   {
     get
     {
-      return GetNode<EntityBody>("Body");
+      _body ??= GetNode<EntityBody>("Body");
+      return _body;
     }
   }
 
   public override void _Ready()
   {
     base._Ready();
-
   }
-
 }
