@@ -18,12 +18,6 @@ Pants = NodePath("Pants")
 CollisionArea = NodePath("CollisionArea")
 CollisionShape = NodePath("CollisionArea/CollisionShape")
 
-[node name="CollisionArea" type="Area2D" parent="."]
-
-[node name="CollisionShape" type="CollisionShape2D" parent="CollisionArea"]
-position = Vector2(-1, 2)
-shape = SubResource("CircleShape2D_0qqli")
-
 [node name="Body" type="AnimatedSprite2D" parent="."]
 sprite_frames = ExtResource("2_o2iu1")
 frame_progress = 0.387468
@@ -42,3 +36,9 @@ sprite_frames = ExtResource("4_u5jly")
 position = Vector2(0, 5)
 scale = Vector2(0.53125, 0.15625)
 sprite_frames = ExtResource("5_m4vwi")
+
+[node name="CollisionArea" type="Area2D" parent="."]
+
+[node name="CollisionShape" type="CollisionShape2D" parent="CollisionArea"]
+position = Vector2(-1, 2)
+shape = SubResource("CircleShape2D_0qqli")
