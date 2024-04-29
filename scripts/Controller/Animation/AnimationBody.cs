@@ -1,3 +1,4 @@
+using Game;
 using Godot;
 using System.Collections.Generic;
 using System.Linq;
@@ -5,7 +6,7 @@ using System.Linq;
 namespace Controller;
 
 
-public partial class AnimationBody : Node2D
+public partial class AnimationBody : EntityBody
 {
   /// <summary>
   /// The sprite with the most number of frames. Used as reference to know if the animation have to stop.

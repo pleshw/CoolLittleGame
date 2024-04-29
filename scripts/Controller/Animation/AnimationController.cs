@@ -4,11 +4,20 @@ using Utils;
 
 namespace Controller;
 
-public partial class AnimationController(Entity entity) : Node2D
+public partial class AnimationController(Entity entity)
 {
   public Entity Entity = entity;
 
-  public AnimationState State = AnimationState.IDLE;
+  private AnimationState _state = AnimationState.IDLE;
+  public AnimationState State
+  {
+    get { return _state; }
+    set
+    {
+      AnimationStateChanged(_state, value);
+      _state = value;
+    }
+  }
 
   public bool LockState = false;
   public bool LockAnimations = false;
@@ -21,10 +30,8 @@ public partial class AnimationController(Entity entity) : Node2D
     }
   }
 
-  public override void _Ready()
+  public void StartEvents()
   {
-    base._Ready();
-
     Entity.Body.Play("Idle");
 
     Entity.MovementController.OnEntityMoved += (from, to) =>
@@ -65,6 +72,9 @@ public partial class AnimationController(Entity entity) : Node2D
 
     switch (currentState)
     {
+      case AnimationState.ATTACKING:
+        PlayAttackAnimation();
+        return;
       case AnimationState.IDLE:
         Entity.Body.Play("Idle");
         return;

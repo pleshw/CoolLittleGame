@@ -20,7 +20,6 @@ public partial class Entity : Node2D
   public EntityAttributes Attributes = new();
 
   public MovementController MovementController;
-
   public CombatController CombatController;
   public AnimationController AnimationController;
   public SpriteController SpriteController;
@@ -37,6 +36,7 @@ public partial class Entity : Node2D
   {
     base._Ready();
     AddToGroup("Entities");
+    AnimationController.StartEvents();
   }
 
   public override void _PhysicsProcess(double delta)

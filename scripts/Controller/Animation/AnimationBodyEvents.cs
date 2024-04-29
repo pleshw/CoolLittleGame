@@ -3,7 +3,7 @@ using System;
 
 namespace Controller;
 
-public partial class AnimationBody : Node2D
+public partial class AnimationBody
 {
   public event Action OnReady;
   public void ReadyEvent()

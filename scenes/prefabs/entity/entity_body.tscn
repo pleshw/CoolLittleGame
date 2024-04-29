@@ -1,6 +1,6 @@
 [gd_scene load_steps=7 format=3 uid="uid://dk65dlj72xtfd"]
 
-[ext_resource type="Script" path="res://scripts/Entity/EntityBody.cs" id="1_8sgn2"]
+[ext_resource type="Script" path="res://scripts/Controller/Animation/AnimationBody.cs" id="1_dv74j"]
 [ext_resource type="SpriteFrames" uid="uid://dtnkrbtucpx4a" path="res://resources/entity/default_body.tres" id="2_o2iu1"]
 [ext_resource type="SpriteFrames" uid="uid://cgm6gdkb8wvcf" path="res://resources/entity/empty_hat.tres" id="3_foy41"]
 [ext_resource type="SpriteFrames" uid="uid://cx0g0xm1mugsf" path="res://resources/entity/empty_shirt.tres" id="4_u5jly"]
@@ -10,7 +10,7 @@
 radius = 4.0
 
 [node name="EntityBody" type="Node2D" node_paths=PackedStringArray("Body", "Hat", "Shirt", "Pants", "CollisionArea", "CollisionShape")]
-script = ExtResource("1_8sgn2")
+script = ExtResource("1_dv74j")
 Body = NodePath("Body")
 Hat = NodePath("Hat")
 Shirt = NodePath("Shirt")
