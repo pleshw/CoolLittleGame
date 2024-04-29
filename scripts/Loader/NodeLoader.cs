@@ -1,7 +1,6 @@
-using System;
 using System.Collections.Generic;
-using System.Linq;
 using Godot;
+using Helpers;
 
 namespace Loader;
 
@@ -45,13 +44,17 @@ public partial class NodeLoader<T> : Node where T : Node
     }
   }
 
-  public ConvertedType CreateInstance<ConvertedType>(StringName sceneName, StringName nodeName) where ConvertedType : Node => CreateInstance(sceneName, nodeName) as ConvertedType;
+  public ConvertedType CreateInstance<ConvertedType>(StringName nodePath) where ConvertedType : Node => CreateInstance<ConvertedType>(nodePath, RegexHelper.SpecialCharacterPattern.Replace(typeof(ConvertedType).ToString(), "") + LoadedNodes.Count + 1);
 
-  public T CreateInstance(StringName sceneName, StringName nodeName)
+  public ConvertedType CreateInstance<ConvertedType>(StringName nodePath, StringName nodeName) where ConvertedType : Node => CreateInstance(nodePath, nodeName) as ConvertedType;
+
+  public T CreateInstance(StringName nodePath) => CreateInstance(nodePath, typeof(T).ToString() + LoadedNodes.Count + 1);
+
+  public T CreateInstance(StringName nodePath, StringName nodeName)
   {
-    PackedScene preload = Preloader.GetResource(sceneName) as PackedScene;
-    if (preload is not null)
+    if (Preloader.HasResource(nodePath))
     {
+      PackedScene preload = Preloader.GetResource(nodePath) as PackedScene;
       T result = preload.Instantiate() as T;
       result.Name = nodeName;
 
@@ -65,7 +68,7 @@ public partial class NodeLoader<T> : Node where T : Node
       return result;
     }
 
-    return Load<T>(sceneName, nodeName);
+    return Load<T>(nodePath, nodeName);
   }
 
   public ConvertedType Load<ConvertedType>(StringName resourcePath, StringName resourceName) where ConvertedType : Node => Load(resourcePath, resourceName) as ConvertedType;

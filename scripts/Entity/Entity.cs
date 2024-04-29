@@ -1,6 +1,6 @@
 using Godot;
 
-namespace Entity;
+namespace Game;
 
 public partial class Entity : Node2D
 {
