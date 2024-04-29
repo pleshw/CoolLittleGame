@@ -25,6 +25,7 @@ public partial class Entity : Node2D
   public override void _Ready()
   {
     base._Ready();
+    AddToGroup("Entities");
   }
 
   public override void _PhysicsProcess(double delta)
