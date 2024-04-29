@@ -5,6 +5,8 @@ namespace Game;
 
 public partial class Entity : Node2D
 {
+  public int Level = 1;
+
   private EntityBody _body;
   public EntityBody Body
   {
@@ -15,11 +17,16 @@ public partial class Entity : Node2D
     }
   }
 
+  public EntityAttributes Attributes = new();
+
   public MovementController MovementController;
+
+  public CombatController CombatController;
 
   public Entity()
   {
     MovementController = new(this, Position);
+    CombatController = new(this);
   }
 
   public override void _Ready()
