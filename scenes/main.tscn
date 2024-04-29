@@ -1,0 +1,19 @@
+[gd_scene load_steps=2 format=3 uid="uid://cksrjtmcpg0g7"]
+
+[ext_resource type="Script" path="res://scripts/MainScene.cs" id="1_omf0s"]
+
+[node name="main" type="Node" node_paths=PackedStringArray("GlobalCamera", "UI", "Game")]
+script = ExtResource("1_omf0s")
+GlobalCamera = NodePath("GlobalCamera")
+UI = NodePath("UI")
+Game = NodePath("Game")
+
+[node name="UI" type="Control" parent="."]
+layout_mode = 3
+anchors_preset = 0
+offset_right = 40.0
+offset_bottom = 40.0
+
+[node name="Game" type="Node2D" parent="."]
+
+[node name="GlobalCamera" type="Camera2D" parent="."]

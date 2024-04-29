@@ -1,0 +1,29 @@
+[gd_scene load_steps=7 format=3 uid="uid://dk65dlj72xtfd"]
+
+[ext_resource type="SpriteFrames" uid="uid://dtnkrbtucpx4a" path="res://resources/player/default_body.tres" id="1_05bvr"]
+[ext_resource type="Script" path="res://scripts/Entity/EntityBody.cs" id="1_8sgn2"]
+[ext_resource type="SpriteFrames" uid="uid://cgm6gdkb8wvcf" path="res://resources/player/empty_hat.tres" id="2_x7s3x"]
+[ext_resource type="SpriteFrames" uid="uid://cx0g0xm1mugsf" path="res://resources/player/empty_shirt.tres" id="3_qh6oe"]
+[ext_resource type="SpriteFrames" uid="uid://wxpvkqpu8ex3" path="res://resources/player/empty_pants.tres" id="4_n2j2r"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_0qqli"]
+
+[node name="EntityBody" type="Node2D"]
+script = ExtResource("1_8sgn2")
+
+[node name="Body" type="AnimatedSprite2D" parent="."]
+sprite_frames = ExtResource("1_05bvr")
+
+[node name="Hat" type="AnimatedSprite2D" parent="."]
+sprite_frames = ExtResource("2_x7s3x")
+
+[node name="Shirt" type="AnimatedSprite2D" parent="."]
+sprite_frames = ExtResource("3_qh6oe")
+
+[node name="Pants" type="AnimatedSprite2D" parent="."]
+sprite_frames = ExtResource("4_n2j2r")
+
+[node name="Area2D" type="Area2D" parent="."]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
+shape = SubResource("CircleShape2D_0qqli")

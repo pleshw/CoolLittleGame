@@ -1,0 +1,9 @@
+[gd_scene load_steps=2 format=3 uid="uid://b1s6eodhffnoi"]
+
+[ext_resource type="PackedScene" uid="uid://dk65dlj72xtfd" path="res://scenes/prefabs/entity/entity_body.tscn" id="1_7juyp"]
+
+[node name="Entity" type="Node2D"]
+
+[node name="Body" parent="." instance=ExtResource("1_7juyp")]
+
+[node name="Camera" type="Camera2D" parent="."]
