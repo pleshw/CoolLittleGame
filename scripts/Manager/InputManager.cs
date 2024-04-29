@@ -36,16 +36,16 @@ public partial class InputManager : Node
   {
     if (@event is InputEventKey inputEventKey)
     {
-      InputKeyHandler(inputEventKey);
+      KeyInputHandler(inputEventKey);
     }
 
     if (@event is InputEventMouseButton inputEventClick)
     {
-      InputMouseHandler(inputEventClick);
+      MouseInputHandler(inputEventClick);
     }
   }
 
-  public void InputKeyHandler(InputEventKey inputEventKey)
+  public void KeyInputHandler(InputEventKey inputEventKey)
   {
     KeyInputHelper key = new(inputEventKey.Device, inputEventKey.Keycode);
     if (inputEventKey.Pressed)
@@ -70,7 +70,7 @@ public partial class InputManager : Node
     }
   }
 
-  private void InputMouseHandler(InputEventMouseButton inputEventClick)
+  private void MouseInputHandler(InputEventMouseButton inputEventClick)
   {
     MouseInputHelper inputEvent = new(inputEventClick, inputEventClick.Position, Hovering);
     if (inputEventClick.Pressed && !mouseButtonPressed.ContainsKey(inputEvent))
