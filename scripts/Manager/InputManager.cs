@@ -6,7 +6,7 @@ using Helpers;
 
 namespace Manager;
 
-public partial class InputManager : Node
+public partial class InputManager : Node2D
 {
   public Area2D CursorArea = new();
 
@@ -98,8 +98,27 @@ public partial class InputManager : Node
     }
   }
 
+  public override void _PhysicsProcess(double delta)
+  {
+    base._PhysicsProcess(delta);
+
+    CursorArea.GlobalPosition = GetGlobalMousePosition();
+  }
+
   public void SetupCursor()
   {
+    CollisionShape2D cursorShape = new()
+    {
+      Shape = new RectangleShape2D()
+      {
+        Size = new Vector2(4.5f, 4.5f)
+      }
+    };
+
+    CursorArea.AddChild(cursorShape);
+    CursorArea.TopLevel = true;
+    CursorArea.ZIndex = 200;
+
     CursorArea.AreaEntered += (Area2D area) =>
     {
       if (area.GetParent() is Entity entity)
