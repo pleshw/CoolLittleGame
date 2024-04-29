@@ -1,12 +1,21 @@
 using System.Collections.Generic;
 using Godot;
 using Helpers;
+using Main;
 
 namespace Loader;
 
 public partial class NodeLoader<T> : Node where T : Node
 {
   public readonly Dictionary<StringName, T> LoadedNodes = [];
+
+  public MainScene MainScene
+  {
+    get
+    {
+      return GetTree().Root.GetNode<MainScene>("MainScene");
+    }
+  }
 
   public T this[StringName nodeName]
   {

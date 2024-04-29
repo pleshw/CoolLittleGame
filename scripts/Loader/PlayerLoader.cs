@@ -1,5 +1,6 @@
 using Files;
 using Game;
+using Godot;
 
 namespace Loader;
 
@@ -10,7 +11,7 @@ public partial class PlayerLoader : NodeLoader<Entity>
 
   public void InstantiatePlayer()
   {
-    Player = CreateInstance(FilePath.Entity);
-    AddLoadedNodesToRoot();
+    Player = CreateInstance(FilePath.Entity, "Player");
+    MainScene.Game.AddChild(Player);
   }
 }

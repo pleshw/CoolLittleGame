@@ -2,7 +2,7 @@
 
 [ext_resource type="Script" path="res://scripts/MainScene.cs" id="1_omf0s"]
 
-[node name="main" type="Node" node_paths=PackedStringArray("GlobalCamera", "UI", "Game")]
+[node name="MainScene" type="Node" node_paths=PackedStringArray("GlobalCamera", "UI", "Game")]
 script = ExtResource("1_omf0s")
 GlobalCamera = NodePath("GlobalCamera")
 UI = NodePath("UI")
