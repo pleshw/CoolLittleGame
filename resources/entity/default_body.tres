@@ -1,3 +1,39 @@
-[gd_resource type="SpriteFrames" format=3 uid="uid://dtnkrbtucpx4a"]
+[gd_resource type="SpriteFrames" load_steps=6 format=3 uid="uid://dtnkrbtucpx4a"]
+
+[ext_resource type="Texture2D" uid="uid://0ehi82rinjun" path="res://packs/Sprout Lands - Sprites - Basic pack/Characters/Basic Charakter Spritesheet.png" id="1_6x5m2"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_cvrii"]
+atlas = ExtResource("1_6x5m2")
+region = Rect2(0, 0, 48, 48)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_1w3ml"]
+atlas = ExtResource("1_6x5m2")
+region = Rect2(48, 0, 48, 48)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_6nka2"]
+atlas = ExtResource("1_6x5m2")
+region = Rect2(96, 0, 48, 48)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_j2rd4"]
+atlas = ExtResource("1_6x5m2")
+region = Rect2(144, 0, 48, 48)
 
 [resource]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_cvrii")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_1w3ml")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_6nka2")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_j2rd4")
+}],
+"loop": true,
+"name": &"default",
+"speed": 12.0
+}]

@@ -1,3 +1,18 @@
-[gd_resource type="SpriteFrames" format=3 uid="uid://cx0g0xm1mugsf"]
+[gd_resource type="SpriteFrames" load_steps=3 format=3 uid="uid://cx0g0xm1mugsf"]
+
+[ext_resource type="Texture2D" uid="uid://6jv660sn33fn" path="res://packs/Sprout Lands - Sprites - Basic pack/Objects/Wood_Bridge.png" id="1_t6fg5"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_qcimw"]
+atlas = ExtResource("1_t6fg5")
+region = Rect2(48, 0, 16, 48)
 
 [resource]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_qcimw")
+}],
+"loop": true,
+"name": &"default",
+"speed": 12.0
+}]

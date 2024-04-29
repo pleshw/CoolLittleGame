@@ -7,6 +7,7 @@
 [ext_resource type="SpriteFrames" uid="uid://wxpvkqpu8ex3" path="res://resources/entity/empty_pants.tres" id="5_m4vwi"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_0qqli"]
+radius = 4.0
 
 [node name="EntityBody" type="Node2D" node_paths=PackedStringArray("Body", "Hat", "Shirt", "Pants", "CollisionArea", "CollisionShape")]
 script = ExtResource("1_8sgn2")
@@ -17,19 +18,27 @@ Pants = NodePath("Pants")
 CollisionArea = NodePath("CollisionArea")
 CollisionShape = NodePath("CollisionArea/CollisionShape")
 
-[node name="Body" type="AnimatedSprite2D" parent="."]
-sprite_frames = ExtResource("2_o2iu1")
-
-[node name="Hat" type="AnimatedSprite2D" parent="."]
-sprite_frames = ExtResource("3_foy41")
-
-[node name="Shirt" type="AnimatedSprite2D" parent="."]
-sprite_frames = ExtResource("4_u5jly")
-
-[node name="Pants" type="AnimatedSprite2D" parent="."]
-sprite_frames = ExtResource("5_m4vwi")
-
 [node name="CollisionArea" type="Area2D" parent="."]
 
 [node name="CollisionShape" type="CollisionShape2D" parent="CollisionArea"]
+position = Vector2(-1, 2)
 shape = SubResource("CircleShape2D_0qqli")
+
+[node name="Body" type="AnimatedSprite2D" parent="."]
+sprite_frames = ExtResource("2_o2iu1")
+frame_progress = 0.387468
+
+[node name="Hat" type="AnimatedSprite2D" parent="."]
+position = Vector2(0, -11)
+sprite_frames = ExtResource("3_foy41")
+frame_progress = 0.296388
+
+[node name="Shirt" type="AnimatedSprite2D" parent="."]
+position = Vector2(-0.5, 4)
+scale = Vector2(0.6875, 0.0833333)
+sprite_frames = ExtResource("4_u5jly")
+
+[node name="Pants" type="AnimatedSprite2D" parent="."]
+position = Vector2(0, 5)
+scale = Vector2(0.53125, 0.15625)
+sprite_frames = ExtResource("5_m4vwi")
