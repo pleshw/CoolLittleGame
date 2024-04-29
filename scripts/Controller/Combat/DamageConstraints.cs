@@ -2,7 +2,7 @@
 using System;
 using Generic;
 
-namespace Controllers;
+namespace Controller;
 
 
 public class DamageTypeProportion
@@ -13,7 +13,7 @@ public class DamageTypeProportion
   public DamageTypeProportion(float physicalDamagePercent, float magicalDamagePercent)
   {
     float total = physicalDamagePercent + magicalDamagePercent;
-    
+
     if (total != 1)
     {
       throw new ArgumentException("Total have to be equal to 1, representing 100%.");

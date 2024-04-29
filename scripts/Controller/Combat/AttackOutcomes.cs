@@ -1,5 +1,5 @@
 
-namespace Controllers;
+namespace Controller;
 
 public enum AttackOutcome
 {

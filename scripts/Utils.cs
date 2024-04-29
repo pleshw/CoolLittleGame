@@ -10,6 +10,27 @@ public static class Extras
     return Math.Abs(val);
   }
 
+  public static bool IsFacingRight(this Vector2 directionVector)
+  {
+    if (directionVector.X == float.PositiveInfinity)
+    {
+      return true;
+    }
+
+    if (directionVector.X >= 0)
+    {
+      return true;
+    }
+
+    return false;
+  }
+
+
+  public static bool IsFacingLeft(this Vector2 directionVector)
+  {
+    return !directionVector.IsFacingRight();
+  }
+
   public static int DistanceInCells(this Node2D origin, Node2D target2, int cellWidth) => origin.Position.DistanceInCells(target2, cellWidth);
   public static int DistanceInCells(this Node2D origin, Vector2 target2, int cellWidth) => origin.Position.DistanceInCells(target2, cellWidth);
   public static int DistanceInCells(this Vector2 origin, Node2D target2, int cellWidth) => origin.DistanceInCells(target2.Position, cellWidth);

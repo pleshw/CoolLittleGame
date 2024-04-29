@@ -2,7 +2,7 @@ using System;
 using Game;
 
 
-namespace Controllers;
+namespace Controller;
 
 public partial class CombatStats(Entity entity)
 {

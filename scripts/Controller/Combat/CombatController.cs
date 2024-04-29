@@ -5,7 +5,7 @@ using Godot;
 using Manager;
 using Utils;
 
-namespace Controllers;
+namespace Controller;
 
 public partial class CombatController(Entity entity)
 {
@@ -25,6 +25,8 @@ public partial class CombatController(Entity entity)
 
   public AttackOutcome ExecuteAttack(Entity target, AttackParameters actionInfo)
   {
+    entity.CombatController.PerformedAttackEvent(target, actionInfo);
+
     if (target == null)
     {
       return AttackOutcome.MISS;

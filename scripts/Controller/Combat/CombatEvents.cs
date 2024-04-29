@@ -1,7 +1,7 @@
 using System;
 using Godot;
 
-namespace Controllers;
+namespace Controller;
 
 public partial class CombatController
 {

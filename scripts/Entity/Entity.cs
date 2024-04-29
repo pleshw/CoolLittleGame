@@ -1,4 +1,4 @@
-using Controllers;
+using Controller;
 using Godot;
 
 namespace Game;
@@ -7,12 +7,12 @@ public partial class Entity : Node2D
 {
   public int Level = 1;
 
-  private EntityBody _body;
-  public EntityBody Body
+  private AnimationBody _body;
+  public AnimationBody Body
   {
     get
     {
-      _body ??= GetNode<EntityBody>("Body");
+      _body ??= GetNode<AnimationBody>("Body");
       return _body;
     }
   }
@@ -22,11 +22,15 @@ public partial class Entity : Node2D
   public MovementController MovementController;
 
   public CombatController CombatController;
+  public AnimationController AnimationController;
+  public SpriteController SpriteController;
 
   public Entity()
   {
     MovementController = new(this, Position);
     CombatController = new(this);
+    AnimationController = new(this);
+    SpriteController = new(this);
   }
 
   public override void _Ready()

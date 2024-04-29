@@ -2,7 +2,7 @@ using System;
 using Game;
 using Godot;
 
-namespace Controllers;
+namespace Controller;
 
 
 public partial class MovementController(Entity entity, Vector2 initialPosition, int stepSize = 32)

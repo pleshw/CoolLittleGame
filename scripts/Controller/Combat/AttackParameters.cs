@@ -3,7 +3,7 @@ using Game;
 using Godot;
 using Utils;
 
-namespace Controllers;
+namespace Controller;
 
 public class AttackParameters
 {
