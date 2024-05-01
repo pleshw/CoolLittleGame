@@ -39,9 +39,6 @@ public partial class AnimationController(Entity entity) : IController
       }
 
       AnimationDirection = currentDirection;
-      GD.Print(AnimationDirection, currentDirection);
-      GD.Print(_animationState, value);
-      GD.Print("/////");
       AnimationStateChanged(_animationState, value);
       _animationState = value;
     }

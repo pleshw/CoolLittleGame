@@ -27,7 +27,7 @@ public partial class CombatController(Entity entity) : IController
   public AttackOutcome ExecuteAttack(Entity target, AttackParameters actionInfo)
   {
     Entity.CombatController.PerformedAttackEvent(target, actionInfo);
-
+    Entity.MovementController.FacingDirectionVector = (Entity.MovementController.LastTrackedPosition - target.MovementController.LastTrackedPosition).Normalized();
     if (target == null)
     {
       return AttackOutcome.MISS;
