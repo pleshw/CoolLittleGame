@@ -1,4 +1,5 @@
 using Game;
+using Generic;
 using Godot;
 using Interfaces;
 using Utils;
@@ -9,42 +10,55 @@ public partial class AnimationController(Entity entity) : IController
 {
   public Entity Entity { get; set; } = entity;
 
-  private AnimationState _state = AnimationState.IDLE;
-  public AnimationState State
+  private Direction _animationDirection = Direction.RIGHT;
+  public Direction AnimationDirection
   {
-    get { return _state; }
+    get { return _animationDirection; }
     set
     {
-      AnimationStateChanged(_state, value);
-      _state = value;
+      if (value == _animationDirection)
+      {
+        return;
+      }
+
+      AnimationDirectionChanged(_animationDirection, value);
+      _animationDirection = value;
+    }
+  }
+
+  private AnimationState _animationState = AnimationState.IDLE;
+  public AnimationState AnimationState
+  {
+    get { return _animationState; }
+    set
+    {
+      Direction currentDirection = Entity.MovementController.FacingDirectionVector.GetDirection();
+      if (value == _animationState && currentDirection == AnimationDirection)
+      {
+        return;
+      }
+
+      AnimationDirection = currentDirection;
+      GD.Print(AnimationDirection, currentDirection);
+      GD.Print(_animationState, value);
+      GD.Print("/////");
+      AnimationStateChanged(_animationState, value);
+      _animationState = value;
     }
   }
 
   public bool LockState = false;
   public bool LockAnimations = false;
 
-  public bool FlipH
-  {
-    get
-    {
-      return Entity.MovementController.FacingDirectionVector.IsFacingLeft();
-    }
-  }
-
   public void StartEvents()
   {
     Entity.Body.Play("Idle");
 
-    Entity.MovementController.OnEntityMoved += (from, to) =>
-    {
-      FlipAnimationToFacingSide();
-    };
+    Entity.MovementController.OnEntityMoved += (from, to) => AnimationState = AnimationState.MOVING;
 
-    Entity.MovementController.OnEntityMoved += (from, to) => State = AnimationState.MOVING;
+    Entity.MovementController.OnEntityIdled += (IdleReason) => AnimationState = AnimationState.IDLE;
 
-    Entity.MovementController.OnEntityIdled += (IdleReason) => State = AnimationState.IDLE;
-
-    Entity.CombatController.OnPerformedAttack += (target, info) => State = AnimationState.ATTACKING;
+    Entity.CombatController.OnPerformedAttack += (target, info) => AnimationState = AnimationState.ATTACKING;
 
     OnAnimationStateChange += AnimationHandler;
   }
@@ -53,11 +67,6 @@ public partial class AnimationController(Entity entity) : IController
   {
     bool animationPlaying = Entity.Body.IsPlaying();
     if (LockAnimations && animationPlaying)
-    {
-      return;
-    }
-
-    if (previousState == currentState && animationPlaying)
     {
       return;
     }
@@ -80,18 +89,12 @@ public partial class AnimationController(Entity entity) : IController
         Entity.Body.Play("Idle");
         return;
       case AnimationState.MOVING:
-        // GD.Print("Moving" + Entity.MovementController.FacingDirectionVector.GetDirectionName());
         Entity.Body.Play("Moving" + Entity.MovementController.FacingDirectionVector.GetDirectionName());
         return;
       case AnimationState.DASHING:
         PlayDashAnimation();
         return;
     }
-  }
-
-  public void FlipAnimationToFacingSide()
-  {
-    Entity.Body.Parts.ForEach(p => p.FlipH = FlipH);
   }
 
   public void PlayAnimation(AnimationRequestInput animationRequest)
@@ -129,8 +132,6 @@ public partial class AnimationController(Entity entity) : IController
       return;
     }
 
-    FlipAnimationToFacingSide();
-
     BeforeAttackAnimationEvent();
 
     PlayAnimation(new()
@@ -150,7 +151,7 @@ public partial class AnimationController(Entity entity) : IController
       {
         LockState = false;
         LockAnimations = false;
-        State = AnimationState.IDLE;
+        AnimationState = AnimationState.IDLE;
         Entity.MovementController.MovementDisabled = false;
         AfterAttackAnimationEvent();
       },

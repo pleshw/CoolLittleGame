@@ -1,3 +1,5 @@
+using Generic;
+
 namespace Controller;
 
 public enum AnimationState

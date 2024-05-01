@@ -20,7 +20,7 @@ public partial class MovementController(Entity entity, Vector2 initialPosition, 
 
   public int SpeedModifier { get; set; } = 1;
 
-  public int BaseMovementSpeed { get; set; } = 6;
+  public int BaseMovementSpeed { get; set; } = 4;
 
   public int MoveSpeed
   {
@@ -85,7 +85,6 @@ public partial class MovementController(Entity entity, Vector2 initialPosition, 
     FacingDirectionVector = displacementDirection;
 
     float distanceToMove = MoveSpeed * delta;
-    GD.Print(distanceToMove);
     float distanceToTarget = Entity.Position.DistanceTo(targetPosition);
     if (distanceToTarget <= distanceToMove)
     {
