@@ -55,12 +55,14 @@ public partial class MovementController(Entity entity, Vector2 initialPosition, 
 
     if (MovementDisabled)
     {
+      GD.Print("Idled");
       EntityIdled(IdleReason.MOVEMENT_DISABLED);
       return;
     }
 
     if (TargetPosition == LastTrackedPosition)
     {
+      GD.Print("Idled");
       TargetPosition = null;
       EntityIdled(IdleReason.REACHED_GOAL);
       return;

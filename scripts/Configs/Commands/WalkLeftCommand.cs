@@ -16,7 +16,7 @@ public class WalkLeftCommand(KeybindMap keyMap) : IGameCommand
       return;
     }
 
-    Vector2 currentTarget = Entity.MovementController.TargetPosition ?? Vector2.Zero;
+    Vector2 currentTarget = Entity.MovementController.TargetPosition ?? Entity.MovementController.LastTrackedPosition;
     Entity.MovementController.TargetPosition = currentTarget with
     {
       X = Entity.Position.X - Entity.MovementController.StepSize

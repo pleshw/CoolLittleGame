@@ -1,4 +1,5 @@
 using System;
+using Generic;
 using Godot;
 
 namespace Utils;
@@ -68,6 +69,73 @@ public static class Extras
     float randomX = (float)GD.RandRange(minX, maxX);
     float randomY = (float)GD.RandRange(minY, maxY);
     return new Vector2(randomX, randomY);
+  }
+
+  public static Direction GetDirection(this Vector2 directionVector)
+  {
+    if (directionVector.X > 0)
+    {
+      if (directionVector.Y > 0)
+      {
+        return Direction.BOTTOM_RIGHT;
+      }
+
+      if (directionVector.Y < 0)
+      {
+        return Direction.TOP_RIGHT;
+      }
+
+      return Direction.RIGHT;
+    }
+    else if (directionVector.X < 0)
+    {
+      if (directionVector.Y > 0)
+      {
+        return Direction.BOTTOM_LEFT;
+      }
+
+      if (directionVector.Y < 0)
+      {
+        return Direction.TOP_LEFT;
+      }
+
+      return Direction.LEFT;
+    }
+    else
+    {
+      if (directionVector.Y > 0)
+      {
+        return Direction.BOTTOM;
+      }
+
+      if (directionVector.Y < 0)
+      {
+        return Direction.TOP;
+      }
+
+      //default
+      return Direction.RIGHT;
+    }
+  }
+
+  public static string GetDirectionName(this Vector2 directionVector)
+  {
+    return directionVector.GetDirection().GetName();
+  }
+
+  public static string GetName<T>(this T genericEnum) where T : Enum
+  {
+    return Enum.GetName(typeof(T), genericEnum).Capitalize();
+  }
+
+  public static string Capitalize(this string input)
+  {
+    return input switch
+    {
+      null => throw new ArgumentNullException(nameof(input)),
+      "" => throw new ArgumentException($"{nameof(input)} cannot be empty", nameof(input)),
+      _ => string.Concat(input[0].ToString().ToUpper(), input.ToLower().AsSpan(1))
+    };
   }
 
   public static void ResizeUsingScale(this AnimatedSprite2D animatedSprite, Vector2 sizeToFit)

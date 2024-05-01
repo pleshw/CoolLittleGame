@@ -80,7 +80,8 @@ public partial class AnimationController(Entity entity) : IController
         Entity.Body.Play("Idle");
         return;
       case AnimationState.MOVING:
-        Entity.Body.Play("Moving");
+        // GD.Print("Moving" + Entity.MovementController.FacingDirectionVector.GetDirectionName());
+        Entity.Body.Play("Moving" + Entity.MovementController.FacingDirectionVector.GetDirectionName());
         return;
       case AnimationState.DASHING:
         PlayDashAnimation();
