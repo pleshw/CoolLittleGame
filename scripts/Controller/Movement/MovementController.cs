@@ -20,11 +20,13 @@ public partial class MovementController(Entity entity, Vector2 initialPosition, 
 
   public int SpeedModifier { get; set; } = 1;
 
+  public int BaseMovementSpeed { get; set; } = 6;
+
   public int MoveSpeed
   {
     get
     {
-      return StepSize * SpeedModifier;
+      return StepSize * SpeedModifier * BaseMovementSpeed;
     }
   }
 
@@ -55,14 +57,12 @@ public partial class MovementController(Entity entity, Vector2 initialPosition, 
 
     if (MovementDisabled)
     {
-      GD.Print("Idled");
       EntityIdled(IdleReason.MOVEMENT_DISABLED);
       return;
     }
 
     if (TargetPosition == LastTrackedPosition)
     {
-      GD.Print("Idled");
       TargetPosition = null;
       EntityIdled(IdleReason.REACHED_GOAL);
       return;
@@ -85,6 +85,7 @@ public partial class MovementController(Entity entity, Vector2 initialPosition, 
     FacingDirectionVector = displacementDirection;
 
     float distanceToMove = MoveSpeed * delta;
+    GD.Print(distanceToMove);
     float distanceToTarget = Entity.Position.DistanceTo(targetPosition);
     if (distanceToTarget <= distanceToMove)
     {

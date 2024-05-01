@@ -24,4 +24,13 @@ public class WalkBottomCommand(KeybindMap keyMap) : IGameCommand
 
     keyMap.MovementInputEvent();
   }
+
+  public void Stop(TimeSpan heldTime)
+  {
+    Vector2 currentTarget = Entity.MovementController.TargetPosition ?? Entity.MovementController.LastTrackedPosition;
+    Entity.MovementController.TargetPosition = currentTarget with
+    {
+      Y = Entity.Position.Y
+    };
+  }
 }

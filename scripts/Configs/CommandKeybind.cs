@@ -23,5 +23,13 @@ public abstract class CommandKeybind : Dictionary<Key, IGameCommand>
     }
   }
 
+  public void Stop(Key key, TimeSpan heldTime)
+  {
+    if (TryGetValue(key, out var command))
+    {
+      command.Stop(heldTime);
+    }
+  }
+
   public abstract void BindDefaults();
 }

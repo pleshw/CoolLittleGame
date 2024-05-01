@@ -46,5 +46,6 @@ public partial class MainScene : Node
 		PlayerLoader.InstantiatePlayer();
 		KeyMap.MovementCommandController.Entity = PlayerLoader.Player;
 		InputManager.OnKeyAction += KeyMap.Execute;
+		InputManager.OnKeyUp += KeyMap.Stop;
 	}
 }
