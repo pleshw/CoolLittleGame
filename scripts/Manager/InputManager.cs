@@ -98,6 +98,41 @@ public partial class InputManager : Node2D
     }
   }
 
+  public override void _Process(double delta)
+  {
+    base._Process(delta);
+
+    foreach (var keyAndTime in keysPressed)
+    {
+      bool isRepeating = keysCommandExecuted[keyAndTime.Key];
+      Key keyPressed = keyAndTime.Key.KeyCode;
+      TimeSpan timeHeld = DateTime.Now - keyAndTime.Value;
+
+      KeyActionEvent(keyPressed, isRepeating, timeHeld);
+
+      keysCommandExecuted[keyAndTime.Key] = true;
+    }
+
+    foreach (var mouseInputEvent in mouseButtonPressed)
+    {
+      bool isRepeating = mouseButtonCommandExecuted[mouseInputEvent.Key];
+      TimeSpan heldTime = DateTime.Now - mouseInputEvent.Value;
+
+      MouseActionEvent(mouseInputEvent.Key, isRepeating, heldTime, Hovering);
+      switch (mouseInputEvent.Key.Event.ButtonIndex)
+      {
+        case MouseButton.Right:
+          RightClickActionEvent(mouseInputEvent.Key, isRepeating, heldTime, Hovering);
+          break;
+        case MouseButton.Left:
+          LeftClickActionEvent(mouseInputEvent.Key, isRepeating, heldTime, Hovering);
+          break;
+      }
+
+      mouseButtonCommandExecuted[mouseInputEvent.Key] = true;
+    }
+  }
+
   public override void _PhysicsProcess(double delta)
   {
     base._PhysicsProcess(delta);

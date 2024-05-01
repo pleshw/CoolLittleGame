@@ -1,5 +1,7 @@
+using Game;
 using Godot;
 using Loader;
+using Manager;
 
 namespace Main;
 
@@ -14,7 +16,9 @@ public partial class MainScene : Node
 	[Export]
 	public Node2D Game;
 
-	private PlayerLoader PlayerLoader
+	public KeybindMap KeyMap = [];
+
+	public PlayerLoader PlayerLoader
 	{
 		get
 		{
@@ -22,14 +26,25 @@ public partial class MainScene : Node
 		}
 	}
 
+	public InputManager InputManager
+	{
+		get
+		{
+			return GetNode<InputManager>("/root/InputManager");
+		}
+	}
+
 	public override void _Ready()
 	{
 		base._Ready();
+		KeyMap.BindDefaults();
 		CallDeferred(nameof(InstantiatePlayer));
 	}
 
 	public void InstantiatePlayer()
 	{
 		PlayerLoader.InstantiatePlayer();
+		KeyMap.MovementCommandController.Entity = PlayerLoader.Player;
+		InputManager.OnKeyAction += KeyMap.Execute;
 	}
 }

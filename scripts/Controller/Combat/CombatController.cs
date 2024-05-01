@@ -2,16 +2,17 @@ using System;
 using System.Collections.Generic;
 using Game;
 using Godot;
+using Interfaces;
 using Manager;
 using Utils;
 
 namespace Controller;
 
-public partial class CombatController(Entity entity)
+public partial class CombatController(Entity entity) : IController
 {
   private readonly Random random = new();
 
-  public Entity entity = entity;
+  public Entity Entity { get; set; } = entity;
 
   public CombatStats Stats;
 
@@ -25,44 +26,44 @@ public partial class CombatController(Entity entity)
 
   public AttackOutcome ExecuteAttack(Entity target, AttackParameters actionInfo)
   {
-    entity.CombatController.PerformedAttackEvent(target, actionInfo);
+    Entity.CombatController.PerformedAttackEvent(target, actionInfo);
 
     if (target == null)
     {
       return AttackOutcome.MISS;
     }
 
-    entity.CombatController.StartedCombatEvent(target, actionInfo);
-    int distanceFromTargetInCells = entity.DistanceInCells(target.Position, MapManager.CellSize);
+    Entity.CombatController.StartedCombatEvent(target, actionInfo);
+    int distanceFromTargetInCells = Entity.DistanceInCells(target.Position, MapManager.CellSize);
     if (actionInfo.RangeInCells < distanceFromTargetInCells)
     {
       target.CombatController.UpdateAwareness(actionInfo, distanceFromTargetInCells);
-      entity.CombatController.NotEnoughRangeEvent(target, actionInfo);
-      entity.CombatController.AttackMissedEvent(target, actionInfo);
+      Entity.CombatController.NotEnoughRangeEvent(target, actionInfo);
+      Entity.CombatController.AttackMissedEvent(target, actionInfo);
       return AttackOutcome.NOT_ENOUGH_RANGE;
     }
 
-    target.CombatController.MarkedAsTargetEvent(entity, actionInfo);
+    target.CombatController.MarkedAsTargetEvent(Entity, actionInfo);
 
-    if (target.CombatController.TryDodge(entity))
+    if (target.CombatController.TryDodge(Entity))
     {
-      target.CombatController.DodgeEvent(entity, actionInfo);
-      entity.CombatController.AttackDodgedEvent(target, actionInfo);
+      target.CombatController.DodgeEvent(Entity, actionInfo);
+      Entity.CombatController.AttackDodgedEvent(target, actionInfo);
       return AttackOutcome.MISS;
     }
 
     target.CombatController.TakeHit(actionInfo, out int damageTaken, out bool wasCritical);
     if (actionInfo.WeaponDamage > 0 && damageTaken == 0)
     {
-      target.CombatController.ZeroDamageTakenEvent(entity, actionInfo, wasCritical);
-      entity.CombatController.ZeroDamageDealtEvent(target, actionInfo, wasCritical);
+      target.CombatController.ZeroDamageTakenEvent(Entity, actionInfo, wasCritical);
+      Entity.CombatController.ZeroDamageDealtEvent(target, actionInfo, wasCritical);
 
       return AttackOutcome.NOT_EFFECTIVE;
     }
 
     if (wasCritical)
     {
-      entity.CombatController.CriticalAttackEvent(target, actionInfo);
+      Entity.CombatController.CriticalAttackEvent(target, actionInfo);
       target.CombatController.TookCriticalEvent(actionInfo);
       return AttackOutcome.CRITICAL;
     }
@@ -75,7 +76,7 @@ public partial class CombatController(Entity entity)
   {
     int randomNumber = random.Next(0, 100);
 
-    return randomNumber < entity.CombatController.Stats.CriticalChance;
+    return randomNumber < Entity.CombatController.Stats.CriticalChance;
   }
 
   private void TakeHit(AttackParameters actionInfo, out int damageTaken, out bool wasCritical)
@@ -85,7 +86,7 @@ public partial class CombatController(Entity entity)
       ? actionInfo.DamagePointsElementalWeakness
       : actionInfo.DamagePoints;
 
-    float flatDamageTaken = (totalDamagePoints * entity.CombatController.Stats.DefensePercentage) - entity.CombatController.Stats.FlatDefense;
+    float flatDamageTaken = (totalDamagePoints * Entity.CombatController.Stats.DefensePercentage) - Entity.CombatController.Stats.FlatDefense;
 
     if (CheckCritical())
     {
@@ -95,36 +96,36 @@ public partial class CombatController(Entity entity)
 
     damageTaken = Mathf.RoundToInt(flatDamageTaken);
 
-    entity.CombatController.BeforeHealthLossEvent(actionInfo, damageTaken, wasCritical);
+    Entity.CombatController.BeforeHealthLossEvent(actionInfo, damageTaken, wasCritical);
 
-    entity.CombatController.Stats.CurrentHealth -= damageTaken;
+    Entity.CombatController.Stats.CurrentHealth -= damageTaken;
 
-    entity.CombatController.AfterHealthLossEvent(actionInfo, damageTaken, wasCritical);
+    Entity.CombatController.AfterHealthLossEvent(actionInfo, damageTaken, wasCritical);
 
-    entity.CombatController.BeforeDeathCheckEvent(actionInfo, damageTaken, wasCritical);
+    Entity.CombatController.BeforeDeathCheckEvent(actionInfo, damageTaken, wasCritical);
 
     CheckDeath(actionInfo);
 
-    entity.CombatController.AfterDeathCheckEvent(actionInfo, damageTaken, wasCritical);
+    Entity.CombatController.AfterDeathCheckEvent(actionInfo, damageTaken, wasCritical);
 
-    entity.CombatController.WasHitEvent(actionInfo);
+    Entity.CombatController.WasHitEvent(actionInfo);
   }
 
 
   private void CheckDeath(AttackParameters actionInfo)
   {
-    if (entity.CombatController.Stats.CurrentHealth <= 0)
+    if (Entity.CombatController.Stats.CurrentHealth <= 0)
     {
       IsAlive = false;
-      entity.CombatController.Stats.CurrentHealth = 0;
-      entity.CombatController.ConfirmDeathEvent(actionInfo);
+      Entity.CombatController.Stats.CurrentHealth = 0;
+      Entity.CombatController.ConfirmDeathEvent(actionInfo);
     }
   }
 
   private bool TryDodge(Entity attacker)
   {
     float enemiesAroundModifier = 1 - (EnemiesAround - 2) * 0.1f;
-    float totalDodgePoints = entity.CombatController.Stats.DodgePoints * enemiesAroundModifier;
+    float totalDodgePoints = Entity.CombatController.Stats.DodgePoints * enemiesAroundModifier;
 
     int totalDodgeChance = Mathf.RoundToInt(100 - (attacker.CombatController.Stats.HitPoints - totalDodgePoints));
 

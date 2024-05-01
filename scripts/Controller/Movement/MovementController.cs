@@ -1,13 +1,14 @@
 using System;
 using Game;
 using Godot;
+using Interfaces;
 
 namespace Controller;
 
 
-public partial class MovementController(Entity entity, Vector2 initialPosition, int stepSize = 32)
+public partial class MovementController(Entity entity, Vector2 initialPosition, int stepSize = 32) : IController
 {
-  public Entity entity = entity;
+  public Entity Entity { get; set; } = entity;
 
   public Vector2 FacingDirectionVector { get; set; } = new Vector2 { X = 1, Y = 0 };
 
@@ -39,7 +40,7 @@ public partial class MovementController(Entity entity, Vector2 initialPosition, 
     {
       TargetPosition = value;
       LastTrackedPosition = value;
-      entity.Position = value;
+      Entity.Position = value;
     }
   }
 
@@ -71,7 +72,7 @@ public partial class MovementController(Entity entity, Vector2 initialPosition, 
   private void Move(float delta, Vector2 targetPosition)
   {
     /// Godot recommend store the entity position instead of recalling on c#
-    LastTrackedPosition = entity.Position;
+    LastTrackedPosition = Entity.Position;
 
     Vector2 displacementDirection = (targetPosition - LastTrackedPosition).Normalized();
     if (displacementDirection == Vector2.Zero)
@@ -82,17 +83,17 @@ public partial class MovementController(Entity entity, Vector2 initialPosition, 
     FacingDirectionVector = displacementDirection;
 
     float distanceToMove = MoveSpeed * delta;
-    float distanceToTarget = entity.Position.DistanceTo(targetPosition);
+    float distanceToTarget = Entity.Position.DistanceTo(targetPosition);
     if (distanceToTarget <= distanceToMove)
     {
-      entity.Position = targetPosition;
+      Entity.Position = targetPosition;
       EntityMoved(LastTrackedPosition, targetPosition);
     }
     else
     {
       Vector2 displacement = FacingDirectionVector * distanceToMove;
       Vector2 newPosition = LastTrackedPosition + displacement;
-      entity.Position = newPosition;
+      Entity.Position = newPosition;
       EntityMoved(LastTrackedPosition, newPosition);
     }
   }

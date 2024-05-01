@@ -1,12 +1,13 @@
 using Game;
 using Godot;
+using Interfaces;
 using Utils;
 
 namespace Controller;
 
-public partial class AnimationController(Entity entity)
+public partial class AnimationController(Entity entity) : IController
 {
-  public Entity Entity = entity;
+  public Entity Entity { get; set; } = entity;
 
   private AnimationState _state = AnimationState.IDLE;
   public AnimationState State
