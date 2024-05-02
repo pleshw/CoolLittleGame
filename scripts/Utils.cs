@@ -1,10 +1,11 @@
 using System;
+using System.Text.RegularExpressions;
 using Generic;
 using Godot;
 
 namespace Utils;
 
-public static class Extras
+public static partial class Extras
 {
   public static int Abs(this int val)
   {
@@ -118,14 +119,45 @@ public static class Extras
     }
   }
 
+  public static Direction GetSimplifiedDirection(this Vector2 directionVector)
+  {
+    if (directionVector.X > 0)
+    {
+      return Direction.RIGHT;
+    }
+
+    if (directionVector.X < 0)
+    {
+      return Direction.LEFT;
+    }
+
+    if (directionVector.Y > 0)
+    {
+      return Direction.BOTTOM;
+    }
+
+    if (directionVector.Y < 0)
+    {
+      return Direction.TOP;
+    }
+
+    // Default
+    return Direction.RIGHT;
+  }
+
   public static string GetDirectionName(this Vector2 directionVector)
   {
     return directionVector.GetDirection().GetName();
   }
 
+  public static string GetSimplifiedDirectionName(this Vector2 directionVector)
+  {
+    return directionVector.GetSimplifiedDirection().GetName();
+  }
+
   public static string GetName<T>(this T genericEnum) where T : Enum
   {
-    return Enum.GetName(typeof(T), genericEnum).Capitalize();
+    return Enum.GetName(typeof(T), genericEnum).Capitalize().WithoutSpecialCharacters();
   }
 
   public static string Capitalize(this string input)
@@ -154,4 +186,12 @@ public static class Extras
     Vector2 scaleFactor = new(sizeToFit.X / currentSize.X, sizeToFit.Y / currentSize.Y);
     animatedSprite.Scale = scaleFactor;
   }
+
+  public static string WithoutSpecialCharacters(this string input)
+  {
+    return OnlyLettersAndNumbers().Replace(input, "");
+  }
+
+  [GeneratedRegex(@"[^a-zA-Z0-9]")]
+  private static partial Regex OnlyLettersAndNumbers();
 }
