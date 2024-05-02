@@ -8,7 +8,10 @@ namespace Main;
 public partial class MainScene : Node
 {
 	[Export]
-	public Camera2D GlobalCamera;
+	public Camera2D UICamera;
+
+	[Export]
+	public Camera2D GameCamera;
 
 	[Export]
 	public Control UI;
@@ -38,7 +41,6 @@ public partial class MainScene : Node
 	{
 		base._Ready();
 		KeyMap.BindDefaults();
-		CallDeferred(nameof(InstantiatePlayer));
 	}
 
 	public void InstantiatePlayer()

@@ -19,6 +19,7 @@ config/icon="res://icon.svg"
 
 PlayerLoader="*res://scripts/Loader/PlayerLoader.cs"
 InputManager="*res://scripts/Manager/InputManager.cs"
+UiManager="*res://scripts/Manager/UIManager.cs"
 
 [dotnet]
 
