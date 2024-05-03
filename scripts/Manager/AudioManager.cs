@@ -51,7 +51,7 @@ public partial class AudioManager : Node
 
     OnAudioReady += () =>
     {
-      var intro = PreloadedAudios["Path to Lake Land"];
+      var intro = PreloadedAudios["Intro"];
 
       intro.Finished += () =>
       {

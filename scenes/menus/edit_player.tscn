@@ -12,7 +12,7 @@ border_color = Color(1, 1, 1, 1)
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_afuuj"]
 bg_color = Color(0, 0, 0, 1)
 
-[node name="EditPlayer" type="Control"]
+[node name="EditPlayer" type="Control" node_paths=PackedStringArray("BackButton", "ConfirmButton")]
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
@@ -20,6 +20,8 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 script = ExtResource("1_0sxji")
+BackButton = NodePath("BackButton")
+ConfirmButton = NodePath("ConfirmButton")
 
 [node name="Panel" type="Panel" parent="."]
 layout_mode = 1
