@@ -1,4 +1,15 @@
-[gd_scene format=3 uid="uid://cq87v4q0n2mys"]
+[gd_scene load_steps=5 format=3 uid="uid://cq87v4q0n2mys"]
+
+[ext_resource type="FontFile" uid="uid://bww5ssy5sy3i2" path="res://assets/fonts/PixelOperator8.ttf" id="1_vmmfr"]
+[ext_resource type="Theme" uid="uid://cd2jrhps4l0vx" path="res://themes/main_menu.tres" id="1_yswua"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_1pn2r"]
+bg_color = Color(0.0846899, 0.0846899, 0.0846899, 1)
+border_width_top = 1
+border_color = Color(1, 1, 1, 1)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_afuuj"]
+bg_color = Color(0, 0, 0, 1)
 
 [node name="EditPlayer" type="Control"]
 layout_mode = 3
@@ -24,34 +35,69 @@ anchor_bottom = 0.0354938
 text = "Edit Label"
 metadata/_edit_use_anchors_ = true
 
-[node name="TabContainer" type="TabContainer" parent="Panel"]
+[node name="HBoxContainer" type="HBoxContainer" parent="."]
+clip_contents = true
+custom_minimum_size = Vector2(0, 400)
 layout_mode = 1
-anchors_preset = -1
-anchor_left = 0.479167
-anchor_top = 0.0246914
-anchor_right = 0.947049
-anchor_bottom = 0.958333
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -520.0
+offset_top = -263.0
+offset_right = 520.0
+offset_bottom = 263.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/separation = 150
+alignment = 1
+
+[node name="MarginContainer" type="MarginContainer" parent="HBoxContainer"]
+layout_mode = 2
+theme_override_constants/margin_left = 20
+theme_override_constants/margin_top = 60
+theme_override_constants/margin_right = 20
+theme_override_constants/margin_bottom = 60
+
+[node name="PlayerPreview" type="Panel" parent="HBoxContainer/MarginContainer"]
+custom_minimum_size = Vector2(350, 0)
+layout_mode = 2
+size_flags_horizontal = 4
 metadata/_edit_use_anchors_ = true
 
-[node name="Body" type="Panel" parent="Panel/TabContainer"]
+[node name="TabContainer" type="TabContainer" parent="HBoxContainer"]
+custom_minimum_size = Vector2(400, 0)
+layout_mode = 2
+theme = ExtResource("1_yswua")
+theme_override_constants/side_margin = 0
+theme_override_fonts/font = ExtResource("1_vmmfr")
+theme_override_font_sizes/font_size = 12
+theme_override_styles/tab_selected = SubResource("StyleBoxFlat_1pn2r")
+theme_override_styles/tabbar_background = SubResource("StyleBoxFlat_afuuj")
+metadata/_edit_use_anchors_ = true
+
+[node name="Body" type="Panel" parent="HBoxContainer/TabContainer"]
 layout_mode = 2
 
-[node name="Hat" type="Panel" parent="Panel/TabContainer"]
+[node name="Hat" type="Panel" parent="HBoxContainer/TabContainer"]
 visible = false
 layout_mode = 2
 
-[node name="Shirt" type="Panel" parent="Panel/TabContainer"]
+[node name="Shirt" type="Panel" parent="HBoxContainer/TabContainer"]
 visible = false
 layout_mode = 2
 
-[node name="Pants" type="Panel" parent="Panel/TabContainer"]
+[node name="Pants" type="Panel" parent="HBoxContainer/TabContainer"]
 visible = false
 layout_mode = 2
 
-[node name="PlayerPreview" type="Panel" parent="Panel"]
-layout_mode = 0
-anchor_left = 0.103299
-anchor_top = 0.140432
-anchor_right = 0.383681
-anchor_bottom = 0.844136
+[node name="Button" type="Button" parent="."]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.0225694
+anchor_top = 0.0401235
+anchor_right = 0.0616319
+anchor_bottom = 0.087963
+text = "Back"
 metadata/_edit_use_anchors_ = true
