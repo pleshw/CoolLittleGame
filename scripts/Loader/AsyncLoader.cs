@@ -57,7 +57,7 @@ public static class AsyncLoader
   {
     CancellationToken.None.ThrowIfCancellationRequested();
 
-    Error error = ResourceLoader.LoadThreadedRequest(path, typeof(TNode).Name, false, ResourceLoader.CacheMode.Reuse);
+    Error error = ResourceLoader.LoadThreadedRequest(path);
 
     if (error != Error.Ok)
     {
@@ -82,16 +82,19 @@ public static class AsyncLoader
         case ResourceLoader.ThreadLoadStatus.Failed:
           throw new IOException($"Failed loading resource at path \"{path}\". Status: {status}.");
         case ResourceLoader.ThreadLoadStatus.InProgress:
+          await Task.Delay(TimeSpan.FromMilliseconds(10000));
           await Task.Yield();
           break;
         case ResourceLoader.ThreadLoadStatus.Loaded:
+          await Task.Delay(TimeSpan.FromMilliseconds(10000));
           isLoading = false;
           break;
       }
     } while (isLoading);
 
-
-    return ResourceLoader.LoadThreadedGet(path) as TNode;
+    PackedScene result = ResourceLoader.LoadThreadedGet(path) as PackedScene;
+    Node sceneInstance = result.Instantiate();
+    return sceneInstance as TNode;
   }
 
 }

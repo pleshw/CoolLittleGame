@@ -68,7 +68,7 @@ public partial class GameSceneManager : MainSceneManager<CanvasItem>
 
     CurrentScene = await AsyncLoader.LoadNodeAsync<Node2D>(scenePath, ProgressReporter);
 
-    CallDeferred(nameof(CompleteLoading), CurrentScene);
+    CallDeferred(nameof(CompleteLoading));
   }
 
   public void CompleteLoading()

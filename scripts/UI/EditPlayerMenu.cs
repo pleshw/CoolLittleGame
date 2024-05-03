@@ -1,4 +1,5 @@
 using Godot;
+using GodotPath;
 using Main;
 
 namespace UI;
@@ -29,6 +30,9 @@ public partial class EditPlayerMenu : Control
 	{
 		MainScene.ThemeManager.SetButtonTheme([BackButton, ConfirmButton]);
 		BackButton.Pressed += MainScene.MenuManager.Back;
-		ConfirmButton.Pressed += MainScene.MenuManager.Back;
+		ConfirmButton.Pressed += async () =>
+		{
+			await MainScene.GameSceneManager.SetGameScene(FilePath.Game.Stage1);
+		};
 	}
 }
