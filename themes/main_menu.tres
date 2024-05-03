@@ -1,6 +1,22 @@
-[gd_resource type="Theme" load_steps=2 format=3 uid="uid://cd2jrhps4l0vx"]
+[gd_resource type="Theme" load_steps=5 format=3 uid="uid://cd2jrhps4l0vx"]
 
 [ext_resource type="FontFile" uid="uid://bww5ssy5sy3i2" path="res://assets/fonts/PixelOperator8.ttf" id="1_1rc8w"]
 
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_rfkqe"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_1pn2r"]
+bg_color = Color(0.0846899, 0.0846899, 0.0846899, 1)
+border_width_top = 1
+border_color = Color(1, 1, 1, 1)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_afuuj"]
+bg_color = Color(0, 0, 0, 1)
+
 [resource]
 Label/fonts/font = ExtResource("1_1rc8w")
+TabContainer/constants/side_margin = 0
+TabContainer/font_sizes/font_size = 12
+TabContainer/fonts/font = ExtResource("1_1rc8w")
+TabContainer/styles/tab_focus = SubResource("StyleBoxEmpty_rfkqe")
+TabContainer/styles/tab_selected = SubResource("StyleBoxFlat_1pn2r")
+TabContainer/styles/tabbar_background = SubResource("StyleBoxFlat_afuuj")

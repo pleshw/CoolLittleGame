@@ -23,6 +23,11 @@ AudioManager="*res://scripts/Manager/AudioManager.cs"
 ThemeManager="*res://scripts/Manager/ThemeManager.cs"
 MenuManager="*res://scripts/Manager/MenuManager.cs"
 
+[display]
+
+window/stretch/mode="viewport"
+window/stretch/aspect="expand"
+
 [dotnet]
 
 project/assembly_name="Cool Little Game"
