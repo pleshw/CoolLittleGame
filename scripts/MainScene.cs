@@ -37,6 +37,30 @@ public partial class MainScene : Node
 		}
 	}
 
+	public AudioManager AudioManager
+	{
+		get
+		{
+			return GetNode<AudioManager>("/root/AudioManager");
+		}
+	}
+
+	public ThemeManager ThemeManager
+	{
+		get
+		{
+			return GetNode<ThemeManager>("/root/ThemeManager");
+		}
+	}
+
+	public MenuManager MenuManager
+	{
+		get
+		{
+			return GetNode<MenuManager>("/root/MenuManager");
+		}
+	}
+
 	public override void _Ready()
 	{
 		base._Ready();

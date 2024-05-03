@@ -1,4 +1,5 @@
 using Godot;
+using Main;
 using Manager;
 
 namespace UI;
@@ -14,23 +15,28 @@ public partial class MainMenu : Control
 	[Export]
 	public Button QuitButton { get; set; }
 
-	public AudioManager AudioManager
+	public MainScene MainScene
 	{
 		get
 		{
-			return GetNode<AudioManager>("/root/AudioManager");
+			return GetTree().Root.GetNode<MainScene>("MainScene");
 		}
 	}
 
 	public override void _Ready()
 	{
 		base._Ready();
-		NewGameButton.MouseEntered += () => AudioManager.PreloadedAudios["ButtonHover"].Play();
-		OptionsButton.MouseEntered += () => AudioManager.PreloadedAudios["ButtonHover"].Play();
-		QuitButton.MouseEntered += () => AudioManager.PreloadedAudios["ButtonHover"].Play();
+		SetupButtons();
+	}
 
-		NewGameButton.Pressed += () => AudioManager.PreloadedAudios["MenuConfirm"].Play();
-		OptionsButton.Pressed += () => AudioManager.PreloadedAudios["MenuConfirm"].Play();
-		QuitButton.Pressed += () => AudioManager.PreloadedAudios["MenuConfirm"].Play();
+	public void SetupButtons()
+	{
+		MainScene.ThemeManager.SetButtonTheme([NewGameButton, OptionsButton, QuitButton]);
+		NewGameButton.Pressed += () =>
+		{
+			MainScene.MenuManager.SetScene(MainScene.MenuManager.EditPlayerMenu);
+		};
+
+		QuitButton.Pressed += () => GetTree().Quit();
 	}
 }

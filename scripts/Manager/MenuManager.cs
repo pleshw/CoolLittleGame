@@ -4,27 +4,12 @@ using GodotPath;
 using System;
 using System.Collections.Generic;
 using UI;
+using Main;
 
 namespace Manager;
 
-public partial class UIManager : NodeLoader<CanvasItem>
+public partial class MenuManager : NodeLoader<CanvasItem>
 {
-  public Control UI
-  {
-    get
-    {
-      return GetTree().Root.GetNode<Control>("UI");
-    }
-  }
-
-  public AudioManager AudioManager
-  {
-    get
-    {
-      return GetNode<AudioManager>("/root/AudioManager");
-    }
-  }
-
   public MainMenu MainMenu { get; set; }
 
   public EditPlayerMenu EditPlayerMenu { get; set; }
@@ -57,7 +42,7 @@ public partial class UIManager : NodeLoader<CanvasItem>
     EditPlayerMenu = Load<EditPlayerMenu>(FilePath.Menu.EditPlayer, "EditPlayer");
     MainScene.UI.AddChild(MainMenu);
     MainScene.UI.AddChild(EditPlayerMenu);
-    SetUIScene(MainMenu);
+    SetScene(MainMenu);
   }
 
   public void HideUI()
@@ -69,7 +54,7 @@ public partial class UIManager : NodeLoader<CanvasItem>
     }
   }
 
-  public void SetUIScene(CanvasItem sceneInstance)
+  public void SetScene(CanvasItem sceneInstance)
   {
     HideUI();
     sceneInstance.Show();
