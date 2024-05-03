@@ -19,6 +19,12 @@ public partial class MainScene : Node
 	[Export]
 	public Node2D Game;
 
+	[Export]
+	public CanvasLayer UICanvasLayer;
+
+	[Export]
+	public CanvasLayer GameCanvasLayer;
+
 	public KeybindMap KeyMap = [];
 
 	public PlayerLoader PlayerLoader

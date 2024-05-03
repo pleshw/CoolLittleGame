@@ -21,8 +21,12 @@ grow_vertical = 2
 anchor_mode = 0
 enabled = false
 
+[node name="UICanvasLayer" type="CanvasLayer" parent="UI"]
+
 [node name="Game" type="Node2D" parent="."]
 
 [node name="GameCamera" type="Camera2D" parent="Game"]
 anchor_mode = 0
 enabled = false
+
+[node name="GameCanvasLayer" type="CanvasLayer" parent="Game"]
