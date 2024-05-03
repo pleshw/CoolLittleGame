@@ -49,6 +49,8 @@ public partial class GameSceneManager : MainSceneManager<CanvasItem>
   public void LoadLoadingScreen()
   {
     LoadingScreen = Load<LoadingScreen>(FilePath.Game.LoadingScreen, "LoadingScreen");
+    LoadingScreen.Hide();
+    LoadingScreen.Visible = false;
     MainScene.GameCanvasLayer.AddChild(LoadingScreen);
   }
 
@@ -58,7 +60,6 @@ public partial class GameSceneManager : MainSceneManager<CanvasItem>
     SetGameCamera();
 
     LoadingScreen.Show();
-    LoadingScreen.Size = GetViewport().GetVisibleRect().Size;
     LoadingScreen.Visible = true;
 
     CurrentScene?.Hide();

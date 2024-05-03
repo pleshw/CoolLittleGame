@@ -82,11 +82,9 @@ public static class AsyncLoader
         case ResourceLoader.ThreadLoadStatus.Failed:
           throw new IOException($"Failed loading resource at path \"{path}\". Status: {status}.");
         case ResourceLoader.ThreadLoadStatus.InProgress:
-          await Task.Delay(TimeSpan.FromMilliseconds(10000));
           await Task.Yield();
           break;
         case ResourceLoader.ThreadLoadStatus.Loaded:
-          await Task.Delay(TimeSpan.FromMilliseconds(10000));
           isLoading = false;
           break;
       }
