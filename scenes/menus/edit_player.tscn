@@ -1,5 +1,6 @@
-[gd_scene load_steps=5 format=3 uid="uid://cq87v4q0n2mys"]
+[gd_scene load_steps=6 format=3 uid="uid://cq87v4q0n2mys"]
 
+[ext_resource type="Script" path="res://scripts/UI/EditPlayerMenu.cs" id="1_0sxji"]
 [ext_resource type="FontFile" uid="uid://bww5ssy5sy3i2" path="res://assets/fonts/PixelOperator8.ttf" id="1_vmmfr"]
 [ext_resource type="Theme" uid="uid://cd2jrhps4l0vx" path="res://themes/main_menu.tres" id="1_yswua"]
 
@@ -18,6 +19,7 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
+script = ExtResource("1_0sxji")
 
 [node name="Panel" type="Panel" parent="."]
 layout_mode = 1
@@ -44,10 +46,10 @@ anchor_left = 0.5
 anchor_top = 0.5
 anchor_right = 0.5
 anchor_bottom = 0.5
-offset_left = -520.0
-offset_top = -263.0
-offset_right = 520.0
-offset_bottom = 263.0
+offset_left = -470.0
+offset_top = -218.0
+offset_right = 470.0
+offset_bottom = 218.0
 grow_horizontal = 2
 grow_vertical = 2
 theme_override_constants/separation = 150
@@ -92,12 +94,27 @@ layout_mode = 2
 visible = false
 layout_mode = 2
 
-[node name="Button" type="Button" parent="."]
+[node name="BackButton" type="Button" parent="."]
 layout_mode = 1
 anchors_preset = -1
-anchor_left = 0.0225694
-anchor_top = 0.0401235
-anchor_right = 0.0616319
-anchor_bottom = 0.087963
+anchor_left = 0.0199653
+anchor_top = 0.0416667
+anchor_right = 0.0590278
+anchor_bottom = 0.0895062
 text = "Back"
 metadata/_edit_use_anchors_ = true
+
+[node name="ConfirmButton" type="Button" parent="."]
+layout_mode = 1
+anchors_preset = 3
+anchor_left = 1.0
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -103.0
+offset_top = -63.0
+offset_right = -32.0
+offset_bottom = -32.0
+grow_horizontal = 0
+grow_vertical = 0
+text = "Confirm"

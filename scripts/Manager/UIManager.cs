@@ -3,6 +3,7 @@ using Loader;
 using GodotPath;
 using System;
 using System.Collections.Generic;
+using UI;
 
 namespace Manager;
 
@@ -24,8 +25,9 @@ public partial class UIManager : NodeLoader<CanvasItem>
     }
   }
 
-  public Control MainMenu { get; set; }
-  public Control EditPlayer { get; set; }
+  public MainMenu MainMenu { get; set; }
+
+  public EditPlayerMenu EditPlayerMenu { get; set; }
 
   public static List<StringName> AllMenuFilePaths
   {
@@ -46,28 +48,15 @@ public partial class UIManager : NodeLoader<CanvasItem>
   {
     base._Ready();
     CallDeferred(nameof(PreloadGameMenus));
-
-    AudioManager.OnAudioReady += () =>
-    {
-      var intro = AudioManager.PreloadedAudios["Path to Lake Land"];
-
-      intro.Finished += () =>
-      {
-        intro.Seek(0);
-        intro.Play();
-      };
-
-      intro.Play();
-    };
   }
 
   public void PreloadGameMenus()
   {
     Preload([.. AllMenuFilePaths]);
-    MainMenu = Load<Control>(FilePath.Menu.MainMenu, "MainMenu");
-    EditPlayer = Load<Control>(FilePath.Menu.EditPlayer, "EditPlayer");
+    MainMenu = Load<MainMenu>(FilePath.Menu.MainMenu, "MainMenu");
+    EditPlayerMenu = Load<EditPlayerMenu>(FilePath.Menu.EditPlayer, "EditPlayer");
     MainScene.UI.AddChild(MainMenu);
-    MainScene.UI.AddChild(EditPlayer);
+    MainScene.UI.AddChild(EditPlayerMenu);
     SetUIScene(MainMenu);
   }
 

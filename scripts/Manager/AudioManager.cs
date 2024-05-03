@@ -48,6 +48,19 @@ public partial class AudioManager : Node
       var streamPlayer = CreateAudioStreamPlayer(m);
       PreloadedAudios.Add(streamPlayer.Name, streamPlayer);
     });
+
+    OnAudioReady += () =>
+    {
+      var intro = PreloadedAudios["Path to Lake Land"];
+
+      intro.Finished += () =>
+      {
+        intro.Seek(0);
+        intro.Play();
+      };
+
+      intro.Play();
+    };
   }
 
   public override void _Ready()
