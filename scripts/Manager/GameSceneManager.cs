@@ -37,7 +37,7 @@ public partial class GameSceneManager : MainSceneManager<CanvasItem>
   public GameSceneManager()
   {
     Preload(FilePath.Game.LoadingScreen);
-    ProgressReporter = new(progress => LoadingScreen.ProgressLabel.Text = $"{progress}%");
+    ProgressReporter = new(progress => LoadingScreen.ProgressLabel.Text = $"{progress * 100}%");
   }
 
   public override void _Ready()
@@ -69,6 +69,8 @@ public partial class GameSceneManager : MainSceneManager<CanvasItem>
     IsLoadingScene = true;
 
     CurrentScene = await AsyncLoader.LoadNodeAsync<Node2D>(scenePath, ProgressReporter);
+
+    await Task.Delay(TimeSpan.FromMilliseconds(1000));
 
     CallDeferred(nameof(CompleteLoading));
   }
