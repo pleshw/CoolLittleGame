@@ -61,6 +61,14 @@ public partial class MainScene : Node
 		}
 	}
 
+	public GameSceneManager GameSceneManager
+	{
+		get
+		{
+			return GetNode<GameSceneManager>("/root/GameSceneManager");
+		}
+	}
+
 	public override void _Ready()
 	{
 		base._Ready();

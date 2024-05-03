@@ -1,0 +1,44 @@
+[gd_scene load_steps=4 format=3 uid="uid://dgyd0ghs676ym"]
+
+[ext_resource type="Texture2D" uid="uid://bpfnq1ikyrxce" path="res://assets/textures/90d369307d0a2cac8dd2cea650f4f797.jpg" id="1_e6eox"]
+[ext_resource type="Script" path="res://scripts/UI/LoadingScreen.cs" id="1_vy04r"]
+[ext_resource type="Theme" uid="uid://cd2jrhps4l0vx" path="res://themes/main_menu.tres" id="2_hh5co"]
+
+[node name="LoadingScreen" type="Control" node_paths=PackedStringArray("ProgressLabel")]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_vy04r")
+ProgressLabel = NodePath("Label")
+
+[node name="TextureRect" type="TextureRect" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("1_e6eox")
+expand_mode = 3
+stretch_mode = 4
+flip_h = true
+
+[node name="Label" type="Label" parent="."]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.722222
+anchor_top = 0.621914
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_top = 3.05176e-05
+grow_horizontal = 0
+grow_vertical = 0
+theme = ExtResource("2_hh5co")
+theme_override_font_sizes/font_size = 40
+text = "0%"
+horizontal_alignment = 1
+vertical_alignment = 1
+metadata/_edit_use_anchors_ = true

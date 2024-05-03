@@ -5,10 +5,11 @@ using System;
 using System.Collections.Generic;
 using UI;
 using Main;
+using System.Linq;
 
 namespace Manager;
 
-public partial class MenuManager : NodeLoader<CanvasItem>
+public partial class MenuManager : MainSceneManager<CanvasItem>
 {
   public MainMenu MainMenu { get; set; }
 
@@ -29,32 +30,27 @@ public partial class MenuManager : NodeLoader<CanvasItem>
 
   public readonly Stack<CanvasItem> UISceneStack = [];
 
+  public MenuManager()
+  {
+    Preload([.. AllMenuFilePaths]);
+  }
+
   public override void _Ready()
   {
     base._Ready();
-    CallDeferred(nameof(PreloadGameMenus));
+    CallDeferred(nameof(LoadGameMenus));
   }
 
-  public void PreloadGameMenus()
+  public void LoadGameMenus()
   {
-    Preload([.. AllMenuFilePaths]);
     MainMenu = Load<MainMenu>(FilePath.Menu.MainMenu, "MainMenu");
     EditPlayerMenu = Load<EditPlayerMenu>(FilePath.Menu.EditPlayer, "EditPlayer");
     MainScene.UI.AddChild(MainMenu);
     MainScene.UI.AddChild(EditPlayerMenu);
-    SetScene(MainMenu);
+    SetMenuScene(MainMenu);
   }
 
-  public void HideUI()
-  {
-    SetGameCamera();
-    foreach (var item in LoadedNodes)
-    {
-      item.Value.Hide();
-    }
-  }
-
-  public void SetScene(CanvasItem sceneInstance)
+  public void SetMenuScene(CanvasItem sceneInstance)
   {
     HideUI();
     sceneInstance.Show();
@@ -68,18 +64,6 @@ public partial class MenuManager : NodeLoader<CanvasItem>
     CurrentUI = sceneInstance;
     SetUICamera();
     SceneStackChangeEvent();
-  }
-
-  public void SetUICamera()
-  {
-    MainScene.UICamera.Enabled = true;
-    MainScene.GameCamera.Enabled = false;
-  }
-
-  public void SetGameCamera()
-  {
-    MainScene.UICamera.Enabled = false;
-    MainScene.GameCamera.Enabled = true;
   }
 
   private void SetSceneWithoutModifyingStack(CanvasItem sceneInstance)

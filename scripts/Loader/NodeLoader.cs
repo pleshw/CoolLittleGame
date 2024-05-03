@@ -42,7 +42,11 @@ public partial class NodeLoader<T> : Node where T : Node
       return _preloader;
     }
   }
-
+  public void Preload(StringName resourcePath)
+  {
+    PackedScene preloadResource = ResourceLoader.Load(resourcePath) as PackedScene;
+    Preloader.AddResource(resourcePath, preloadResource);
+  }
   public void Preload(StringName[] paths)
   {
     foreach (StringName sceneToPreload in paths)

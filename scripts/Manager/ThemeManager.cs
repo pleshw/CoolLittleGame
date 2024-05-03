@@ -1,23 +1,25 @@
 using Godot;
+using Main;
 using static Godot.Control;
 
 namespace Manager;
 
 public partial class ThemeManager : Node
 {
-  public AudioManager AudioManager
+  public MainScene MainScene
   {
     get
     {
-      return GetNode<AudioManager>("/root/AudioManager");
+      return GetTree().Root.GetNode<MainScene>("MainScene");
     }
   }
+
 
   public void SetButtonTheme(Button button)
   {
     button.MouseDefaultCursorShape = CursorShape.PointingHand;
-    button.MouseEntered += () => AudioManager.PreloadedAudios["ButtonHover"].Play();
-    button.Pressed += () => AudioManager.PreloadedAudios["MenuConfirm"].Play();
+    button.MouseEntered += () => MainScene.AudioManager.PreloadedAudios["ButtonHover"].Play();
+    button.Pressed += () => MainScene.AudioManager.PreloadedAudios["MenuConfirm"].Play();
   }
 
   public void SetButtonTheme(Button[] buttons)
@@ -25,8 +27,8 @@ public partial class ThemeManager : Node
     foreach (var button in buttons)
     {
       button.MouseDefaultCursorShape = CursorShape.PointingHand;
-      button.MouseEntered += () => AudioManager.PreloadedAudios["ButtonHover"].Play();
-      button.Pressed += () => AudioManager.PreloadedAudios["MenuConfirm"].Play();
+      button.MouseEntered += () => MainScene.AudioManager.PreloadedAudios["ButtonHover"].Play();
+      button.Pressed += () => MainScene.AudioManager.PreloadedAudios["MenuConfirm"].Play();
     }
   }
 }

@@ -34,7 +34,7 @@ public partial class MainMenu : Control
 		MainScene.ThemeManager.SetButtonTheme([NewGameButton, OptionsButton, QuitButton]);
 		NewGameButton.Pressed += () =>
 		{
-			MainScene.MenuManager.SetScene(MainScene.MenuManager.EditPlayerMenu);
+			MainScene.MenuManager.SetMenuScene(MainScene.MenuManager.EditPlayerMenu);
 		};
 
 		QuitButton.Pressed += () => GetTree().Quit();
