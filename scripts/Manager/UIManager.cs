@@ -16,6 +16,14 @@ public partial class UIManager : NodeLoader<CanvasItem>
     }
   }
 
+  public AudioManager AudioManager
+  {
+    get
+    {
+      return GetNode<AudioManager>("/root/AudioManager");
+    }
+  }
+
   public Control MainMenu { get; set; }
   public Control EditPlayer { get; set; }
 
@@ -38,6 +46,19 @@ public partial class UIManager : NodeLoader<CanvasItem>
   {
     base._Ready();
     CallDeferred(nameof(PreloadGameMenus));
+
+    AudioManager.OnAudioReady += () =>
+    {
+      var intro = AudioManager.PreloadedAudios["Path to Lake Land"];
+
+      intro.Finished += () =>
+      {
+        intro.Seek(0);
+        intro.Play();
+      };
+
+      intro.Play();
+    };
   }
 
   public void PreloadGameMenus()
