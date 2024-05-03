@@ -4,7 +4,7 @@ using Loader;
 
 namespace Manager;
 
-public partial class MainSceneManager<T> : NodeLoader<T> where T : Node
+public partial class MainSceneManager<T> : GameNodeLoader<T> where T : Node
 {
   public void SetUICamera()
   {

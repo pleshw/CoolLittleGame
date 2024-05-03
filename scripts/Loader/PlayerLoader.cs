@@ -5,7 +5,7 @@ using Godot;
 namespace Loader;
 
 
-public partial class PlayerLoader : NodeLoader<Entity>
+public partial class PlayerLoader : GameNodeLoader<Entity>
 {
   public Entity Player;
 
