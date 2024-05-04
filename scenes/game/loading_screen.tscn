@@ -4,15 +4,17 @@
 [ext_resource type="Script" path="res://scripts/UI/LoadingScreen.cs" id="1_vy04r"]
 [ext_resource type="Theme" uid="uid://cd2jrhps4l0vx" path="res://themes/main_menu.tres" id="2_hh5co"]
 
-[node name="LoadingScreen" type="Control" node_paths=PackedStringArray("ProgressLabel")]
+[node name="LoadingScreen" type="Control" node_paths=PackedStringArray("ProgressLabel", "HintMessageLabel")]
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
+theme = ExtResource("2_hh5co")
 script = ExtResource("1_vy04r")
 ProgressLabel = NodePath("ProgressLabel")
+HintMessageLabel = NodePath("HintMessageLabel")
 
 [node name="TextureRect" type="TextureRect" parent="."]
 layout_mode = 1
@@ -44,12 +46,19 @@ vertical_alignment = 1
 metadata/_edit_use_anchors_ = true
 
 [node name="HintMessageLabel" type="Label" parent="."]
+custom_minimum_size = Vector2(500, 40)
 layout_mode = 1
 anchors_preset = -1
-anchor_left = 0.482639
-anchor_top = 0.617284
-anchor_right = 0.517361
-anchor_bottom = 0.652778
+anchor_left = 0.282986
+anchor_top = 0.679012
+anchor_right = 0.717014
+anchor_bottom = 0.740741
+offset_top = 3.05176e-05
 grow_horizontal = 2
 grow_vertical = 0
+theme_override_font_sizes/font_size = 16
+horizontal_alignment = 1
+vertical_alignment = 1
+autowrap_mode = 2
+uppercase = true
 metadata/_edit_use_anchors_ = true
