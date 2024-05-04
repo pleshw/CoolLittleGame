@@ -9,9 +9,9 @@ public partial class PlayerLoader : GameNodeLoader<Entity>
 {
   public Entity Player;
 
-  public void InstantiatePlayer()
+  public Entity InstantiatePlayer()
   {
     Player = CreateInstance(FilePath.Entity, "Player");
-    MainScene.Game.AddChild(Player);
+    return Player;
   }
 }

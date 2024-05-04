@@ -3,7 +3,7 @@
 [ext_resource type="Script" path="res://scripts/UI/EditPlayerMenu.cs" id="1_0sxji"]
 [ext_resource type="Theme" uid="uid://cd2jrhps4l0vx" path="res://themes/main_menu.tres" id="1_yswua"]
 
-[node name="EditPlayer" type="Control" node_paths=PackedStringArray("BackButton", "ConfirmButton")]
+[node name="EditPlayer" type="Control" node_paths=PackedStringArray("PlayerPreviewPanel", "BackButton", "ConfirmButton")]
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
@@ -11,6 +11,7 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 script = ExtResource("1_0sxji")
+PlayerPreviewPanel = NodePath("HBoxContainer/MarginContainer/PlayerPreview")
 BackButton = NodePath("BackButton")
 ConfirmButton = NodePath("ConfirmButton")
 
@@ -56,7 +57,7 @@ theme_override_constants/margin_right = 20
 theme_override_constants/margin_bottom = 60
 
 [node name="PlayerPreview" type="Panel" parent="HBoxContainer/MarginContainer"]
-custom_minimum_size = Vector2(350, 0)
+custom_minimum_size = Vector2(350, 400)
 layout_mode = 2
 size_flags_horizontal = 4
 metadata/_edit_use_anchors_ = true

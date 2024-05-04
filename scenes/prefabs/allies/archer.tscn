@@ -1,0 +1,13 @@
+[gd_scene load_steps=2 format=3 uid="uid://dud5sh187wfoq"]
+
+[ext_resource type="PackedScene" uid="uid://dk65dlj72xtfd" path="res://scenes/prefabs/entity/entity_body.tscn" id="1_jjtgg"]
+
+[node name="Archer" instance=ExtResource("1_jjtgg")]
+
+[node name="Body" parent="." index="0"]
+animation = &"MovingTop"
+frame = 2
+frame_progress = 0.726858
+
+[node name="CollisionShape" parent="CollisionArea" index="0"]
+position = Vector2(1, 13)

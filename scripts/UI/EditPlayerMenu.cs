@@ -1,3 +1,4 @@
+using Game;
 using Godot;
 using GodotPath;
 using Main;
@@ -6,6 +7,9 @@ namespace UI;
 
 public partial class EditPlayerMenu : Control
 {
+	[Export]
+	public Panel PlayerPreviewPanel { get; set; }
+
 	[Export]
 	public Button BackButton { get; set; }
 
@@ -24,6 +28,14 @@ public partial class EditPlayerMenu : Control
 	{
 		base._Ready();
 		SetupButtons();
+		CallDeferred(nameof(SetPlayerPreview));
+	}
+
+	public void SetPlayerPreview()
+	{
+		Entity playerInstance = MainScene.PlayerLoader.InstantiatePlayer();
+		PlayerPreviewPanel.AddChild(playerInstance);
+		playerInstance.Position = PlayerPreviewPanel.Size / 2;
 	}
 
 	public void SetupButtons()
