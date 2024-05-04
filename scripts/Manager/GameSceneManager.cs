@@ -5,6 +5,7 @@ using Main;
 using Loader;
 using UI;
 using System.Threading.Tasks;
+using GameHint;
 
 namespace Manager;
 
@@ -68,9 +69,13 @@ public partial class GameSceneManager : MainSceneManager<CanvasItem>
 
     IsLoadingScene = true;
 
+
     CurrentScene = await AsyncLoader.LoadNodeAsync<Node2D>(scenePath, ProgressReporter);
 
-    await Task.Delay(TimeSpan.FromMilliseconds(1000));
+    Hint gameHint = HintMessages.LoadingScreen.Hints.Get();
+
+    LoadingScreen.HintMessageLabel.Text = gameHint.Message;
+    await Task.Delay(TimeSpan.FromMilliseconds(gameHint.TimeInMs));
 
     CallDeferred(nameof(CompleteLoading));
   }
