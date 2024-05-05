@@ -19,37 +19,31 @@ public partial class SaveFilesManager : Node
   {
     get
     {
-      return ProjectSettings.GlobalizePath("user://saveFiles/");
+      return ProjectSettings.GlobalizePath("user://saves/");
     }
   }
 
-  public static void CreateNewPlayerSaveFile(string playerData)
+  public static void CreateNewSaveFile(string folderName, string fileName, string dataAsJson)
   {
-    EnsureDirectoryExists();
+    EnsureDirectoryExists(folderName, out string folderPath);
 
-    string lastSaveFile = GetLastPlayerSaveFile();
+    string lastSaveFile = GetNewSaveFileName(folderPath, fileName);
 
-    string newSaveFileName = lastSaveFile != null ? $"saveFile{GetSaveFileNumber(lastSaveFile) + 1}.json" : "saveFile0.json";
+    string newSaveFileName = lastSaveFile != null ? $"{fileName}{GetFileNumber(lastSaveFile) + 1}.json" : "saveFile0.json";
 
-    try
-    {
-      File.WriteAllText(Path.Join(UserSavesDirectory, newSaveFileName), playerData);
-    }
-    catch (System.Exception err)
-    {
-      GD.Print(err);
-    }
+    File.WriteAllText(Path.Join(folderPath, newSaveFileName), dataAsJson);
   }
 
-  private static void EnsureDirectoryExists()
+  private static void EnsureDirectoryExists(string folderName, out string folderPath)
   {
-    if (!Directory.Exists(UserSavesDirectory))
+    folderPath = Path.Join(UserSavesDirectory, folderName);
+    if (!Directory.Exists(folderPath))
     {
-      Directory.CreateDirectory(UserSavesDirectory);
+      Directory.CreateDirectory(folderPath);
     }
   }
 
-  static int GetSaveFileNumber(string filename)
+  static int GetFileNumber(string filename)
   {
     string numberPart = OnlyDigits().Match(filename).Value;
     if (int.TryParse(numberPart, out int saveNumber))
@@ -62,9 +56,9 @@ public partial class SaveFilesManager : Node
     }
   }
 
-  private static string GetLastPlayerSaveFile()
+  private static string GetNewSaveFileName(string folderPath, string fileName)
   {
-    string[] saveFiles = Directory.GetFiles(UserSavesDirectory, "saveFile*");
+    string[] saveFiles = Directory.GetFiles(folderPath, $"{fileName}*");
 
     return saveFiles.OrderByDescending(f => new FileInfo(f).LastWriteTime).FirstOrDefault();
   }

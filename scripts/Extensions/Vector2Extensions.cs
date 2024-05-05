@@ -86,6 +86,22 @@ public static class Vector2Extensions
     return Direction.RIGHT;
   }
 
+  public static Direction GetSide(this Vector2 directionVector)
+  {
+    if (directionVector.X > 0)
+    {
+      return Direction.RIGHT;
+    }
+
+    if (directionVector.X < 0)
+    {
+      return Direction.LEFT;
+    }
+
+    // Default
+    return Direction.RIGHT;
+  }
+
   public static string GetDirectionName(this Vector2 directionVector)
   {
     return directionVector.GetDirection().GetName();

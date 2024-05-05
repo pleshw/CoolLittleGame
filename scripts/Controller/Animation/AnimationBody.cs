@@ -8,10 +8,21 @@ namespace Controller;
 
 public partial class AnimationBody : EntityBody
 {
+  [Export]
+  public bool ShouldFlipSideOnDirectionChange = true;
+
   /// <summary>
   /// The sprite with the most number of frames. Used as reference to know if the animation have to stop.
   /// </summary>
   public AnimatedSprite2D SpriteReference;
+
+  public SpriteFrames SpriteFramesReference
+  {
+    get
+    {
+      return SpriteReference.SpriteFrames;
+    }
+  }
 
   public Dictionary<StringName, AnimatedSprite2D> PartsByName = [];
 

@@ -76,6 +76,19 @@ public partial class AnimationController(Entity entity) : IController
       return;
     }
 
+    if (Entity.Body.ShouldFlipSideOnDirectionChange)
+    {
+      Direction side = Entity.MovementController.FacingDirectionVector.GetSide();
+      if (side == Direction.LEFT)
+      {
+        Entity.Body.Parts.ForEach(p => p.FlipH = true);
+      }
+      else
+      {
+        Entity.Body.Parts.ForEach(p => p.FlipH = false);
+      }
+    }
+
     Entity.Body.EmitSignal(AnimatedSprite2D.SignalName.AnimationFinished);
 
     switch (currentState)

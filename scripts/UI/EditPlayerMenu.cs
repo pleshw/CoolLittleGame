@@ -35,7 +35,7 @@ public partial class EditPlayerMenu : Control
 	{
 		Entity playerInstance = MainScene.PlayerLoader.InstantiatePlayer();
 		PlayerPreviewPanel.AddChild(playerInstance);
-		playerInstance.Position = PlayerPreviewPanel.Size / 2;
+		playerInstance.Position = (PlayerPreviewPanel.Size / 2) - (playerInstance.Body.Size / 2);
 	}
 
 	public void SetupButtons()
