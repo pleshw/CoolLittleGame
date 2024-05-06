@@ -5,6 +5,13 @@ namespace Game;
 
 public partial class Entity : Node2D
 {
+  /// <summary>
+  /// The name of the entity.
+  /// If there are many of the same entities all have the same DisplayName
+  /// They can be differed by the Node2d Name property if needed, or by godot group system. 
+  /// </summary>
+  public string DisplayName;
+
   public int Level = 1;
 
   private AnimationBody _body;

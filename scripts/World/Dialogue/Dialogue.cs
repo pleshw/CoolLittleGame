@@ -1,6 +1,8 @@
+using Godot;
+
 namespace Game;
 
-public class Dialogue
+public partial class Dialogue : Node
 {
 
 }

@@ -23,27 +23,48 @@ public partial class SaveFilesManager : Node
     }
   }
 
-  public static void CreateNewSaveFile(string folderName, string fileName, string dataAsJson)
+  public static string CreateNewSaveFolder(string folderName)
   {
-    EnsureDirectoryExists(folderName, out string folderPath);
+    EnsureDirectoryExists(folderName, out string parentFolderPath);
 
-    string lastSaveFile = GetNewSaveFileName(folderPath, fileName);
+    string lastFolderWithSameName = GetLastSaveFolderName(parentFolderPath, folderName);
 
-    string newSaveFileName = lastSaveFile != null ? $"{fileName}{GetFileNumber(lastSaveFile) + 1}.json" : "saveFile0.json";
+    string newSaveFolderName = lastFolderWithSameName != null ? $"{folderName}{GetFolderNumber(lastFolderWithSameName) + 1}" : $"{folderName}0";
 
-    File.WriteAllText(Path.Join(folderPath, newSaveFileName), dataAsJson);
+    EnsureDirectoryExists(parentFolderPath + "/", newSaveFolderName, out string folderPath);
+
+    return folderPath;
   }
 
-  private static void EnsureDirectoryExists(string folderName, out string folderPath)
+  public static string CreateNewSaveFile(string validFolderPath, string fileName, string dataAsJson)
   {
-    folderPath = Path.Join(UserSavesDirectory, folderName);
+    string lastSaveFile = GetLastSaveFileName(validFolderPath, fileName);
+
+    string newSaveFileName = lastSaveFile != null ? $"{fileName}{GetFileNumber(lastSaveFile) + 1}.json" : $"{fileName}0.json";
+
+    string filePath = Path.Join(validFolderPath, newSaveFileName);
+
+    File.WriteAllText(filePath, dataAsJson);
+
+    return filePath;
+  }
+
+  protected static void EnsureDirectoryExists(string parentFolderPath, string folderName, out string folderPath)
+  {
+    folderPath = Path.Join(parentFolderPath, folderName);
     if (!Directory.Exists(folderPath))
     {
       Directory.CreateDirectory(folderPath);
     }
   }
 
-  static int GetFileNumber(string filename)
+
+  protected static void EnsureDirectoryExists(string folderName, out string folderPath)
+  {
+    EnsureDirectoryExists(UserSavesDirectory, folderName, out folderPath);
+  }
+
+  public static int GetFileNumber(string filename)
   {
     string numberPart = OnlyDigits().Match(filename).Value;
     if (int.TryParse(numberPart, out int saveNumber))
@@ -56,12 +77,33 @@ public partial class SaveFilesManager : Node
     }
   }
 
-  private static string GetNewSaveFileName(string folderPath, string fileName)
+  public static string GetLastSaveFileName(string folderPath, string fileName)
   {
     string[] saveFiles = Directory.GetFiles(folderPath, $"{fileName}*");
 
     return saveFiles.OrderByDescending(f => new FileInfo(f).LastWriteTime).FirstOrDefault();
   }
+
+  public static int GetFolderNumber(string folderName)
+  {
+    string numberPart = OnlyDigits().Match(folderName).Value;
+    if (int.TryParse(numberPart, out int saveNumber))
+    {
+      return saveNumber;
+    }
+    else
+    {
+      return -1; // Indicates failure to parse
+    }
+  }
+
+  public static string GetLastSaveFolderName(string folderPath, string folderName)
+  {
+    string[] saveFolders = Directory.GetDirectories(folderPath, $"{folderName}*");
+
+    return saveFolders.OrderByDescending(f => new DirectoryInfo(f).LastWriteTime).FirstOrDefault();
+  }
+
 
   [GeneratedRegex(@"\d+")]
   private static partial Regex OnlyDigits();

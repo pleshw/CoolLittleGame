@@ -5,7 +5,7 @@ using Main;
 
 namespace Loader;
 
-public partial class GameNodeLoader<T> : Node where T : Node
+public partial class NodeLoader<T> : Node where T : Node
 {
   public readonly Dictionary<StringName, T> LoadedNodes = [];
 
@@ -121,7 +121,7 @@ public partial class GameNodeLoader<T> : Node where T : Node
     return this[sceneName] as ConvertedType;
   }
 
-  ~GameNodeLoader()
+  ~NodeLoader()
   {
     foreach (var item in LoadedNodes)
     {

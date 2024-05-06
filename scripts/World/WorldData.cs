@@ -2,8 +2,8 @@ using System.Collections.Generic;
 
 namespace Game;
 
-public class WorldData
+public record class WorldData
 {
-  public List<string> VisitedStages;
-  public List<NPCInteraction> NPCInteraction;
+  public required List<string> VisitedStages;
+  public required List<NPCInteraction> NPCInteraction;
 }

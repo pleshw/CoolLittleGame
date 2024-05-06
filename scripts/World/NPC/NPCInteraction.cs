@@ -7,7 +7,9 @@ public class NPCInteraction
 {
   [JsonIgnore]
   public NPC NPC;
-  public bool HasPlayerInteractedWith;
-  public List<DialogueNode> CompletedDialogues;
-  public List<DialogueNode> NotSeenDialogues;
+
+  public required string NPCNodePath;
+  public required bool HasPlayerInteractedWith;
+  public required List<DialogueNode> CompletedDialogues;
+  public required List<DialogueNode> NotSeenDialogues;
 }

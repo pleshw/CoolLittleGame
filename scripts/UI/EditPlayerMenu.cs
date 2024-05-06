@@ -1,7 +1,9 @@
+using System.Text.Json;
 using Game;
 using Godot;
 using GodotPath;
 using Main;
+using Manager;
 
 namespace UI;
 
@@ -44,6 +46,21 @@ public partial class EditPlayerMenu : Control
 		BackButton.Pressed += MainScene.MenuManager.Back;
 		ConfirmButton.Pressed += async () =>
 		{
+			var testData = new WorldData
+			{
+				VisitedStages = ["test123"],
+				NPCInteraction = [new() {
+					NPCNodePath = "test.tscn",
+					HasPlayerInteractedWith = false,
+					CompletedDialogues = [],
+					NotSeenDialogues = [],
+				}]
+			};
+
+			var testDataJson = JsonSerializer.Serialize(testData, typeof(WorldData), GameJsonContext.Default);
+
+			MainScene.WorldSaveFileManager.CreateNewSaveFile(testData);
+
 			await MainScene.GameSceneManager.SetGameScene(FilePath.Game.Stage1);
 		};
 	}

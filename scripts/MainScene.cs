@@ -75,6 +75,14 @@ public partial class MainScene : Node
 		}
 	}
 
+	public WorldSaveFileManager WorldSaveFileManager
+	{
+		get
+		{
+			return GetNode<WorldSaveFileManager>("/root/WorldSaveFileManager");
+		}
+	}
+
 	public override void _Ready()
 	{
 		base._Ready();

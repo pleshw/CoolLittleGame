@@ -69,7 +69,6 @@ public partial class GameSceneManager : MainSceneManager<CanvasItem>
 
     IsLoadingScene = true;
 
-
     CurrentScene = await AsyncLoader.LoadNodeAsync<Node2D>(scenePath, ProgressReporter);
 
     Hint gameHint = HintMessages.LoadingScreen.Hints.Get();
