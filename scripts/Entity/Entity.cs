@@ -1,18 +1,15 @@
+using System.Text.Json.Serialization;
 using Controller;
 using Godot;
+using Interfaces;
 
 namespace Game;
 
-public partial class Entity : Node2D
+public partial class Entity : Node2D, ISerializableEntity
 {
-  /// <summary>
-  /// The name of the entity.
-  /// If there are many of the same entities all have the same DisplayName
-  /// They can be differed by the Node2d Name property if needed, or by godot group system. 
-  /// </summary>
-  public string DisplayName;
 
-  public int Level = 1;
+  public string DisplayName { get; set; } = "";
+  public int Level { get; set; } = 1;
 
   private AnimationBody _body;
   public AnimationBody Body
@@ -23,6 +20,15 @@ public partial class Entity : Node2D
       return _body;
     }
   }
+
+  public ISerializableAnimationBody SerializableBody
+  {
+    get
+    {
+      return Body;
+    }
+  }
+
 
   public EntityAttributes Attributes = new();
 

@@ -1,12 +1,13 @@
 using System.Text.Json;
-using Environment;
+using Game;
+using Interfaces;
 
 namespace Manager;
 
 public partial class PlayerSaveFileManager : SaveFilesManager
 {
-  public static void CreateNewSaveFile(string worldFolderName, GameMap mapInfo)
+  public string CreateNewPlayerSaveFile(string worldFolderName, ISerializableEntity player)
   {
-    CreateNewSaveFile(worldFolderName, "player", JsonSerializer.Serialize(mapInfo, typeof(GameMap), GameJsonContext.Default));
+    return CreateNewSaveFile(worldFolderName, "player", JsonSerializer.Serialize(player, typeof(ISerializableEntity), GameJsonContext.Default));
   }
 }

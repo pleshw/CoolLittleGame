@@ -1,12 +1,13 @@
 using Game;
 using Godot;
+using Interfaces;
 using System.Collections.Generic;
 using System.Linq;
 
 namespace Controller;
 
 
-public partial class AnimationBody : EntityBody
+public partial class AnimationBody : EntityBody, ISerializableAnimationBody
 {
   [Export]
   public bool ShouldFlipSideOnDirectionChange = true;
@@ -25,6 +26,22 @@ public partial class AnimationBody : EntityBody
   }
 
   public Dictionary<StringName, AnimatedSprite2D> PartsByName = [];
+
+  public Dictionary<string, string> ResourcePathByPart
+  {
+    get
+    {
+      Dictionary<string, string> spriteResourcePaths = [];
+
+      foreach (var part in PartsByName)
+      {
+        string spriteResourcePath = part.Value.SpriteFrames.ResourcePath;
+        spriteResourcePaths.Add(part.Key, spriteResourcePath);
+      }
+
+      return spriteResourcePaths;
+    }
+  }
 
   public List<AnimatedSprite2D> Parts;
 

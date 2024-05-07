@@ -20,7 +20,7 @@ CollisionShape = NodePath("CollisionArea/CollisionShape")
 
 [node name="Body" type="AnimatedSprite2D" parent="."]
 sprite_frames = ExtResource("2_o2iu1")
-animation = &"MovingBottom"
+animation = &"Idle"
 
 [node name="Hat" type="AnimatedSprite2D" parent="."]
 position = Vector2(0, -11)
@@ -42,5 +42,5 @@ animation = &"Idle"
 [node name="CollisionArea" type="Area2D" parent="."]
 
 [node name="CollisionShape" type="CollisionShape2D" parent="CollisionArea"]
-position = Vector2(-1, 2)
+position = Vector2(0, 15)
 shape = SubResource("CircleShape2D_0qqli")

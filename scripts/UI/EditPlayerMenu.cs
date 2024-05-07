@@ -1,3 +1,4 @@
+using System;
 using System.Text.Json;
 using Game;
 using Godot;
@@ -18,6 +19,8 @@ public partial class EditPlayerMenu : Control
 	[Export]
 	public Button ConfirmButton { get; set; }
 
+	public Entity PlayerPreviewModel { get; set; }
+
 	public MainScene MainScene
 	{
 		get
@@ -35,9 +38,9 @@ public partial class EditPlayerMenu : Control
 
 	public void SetPlayerPreview()
 	{
-		Entity playerInstance = MainScene.PlayerLoader.InstantiatePlayer();
-		PlayerPreviewPanel.AddChild(playerInstance);
-		playerInstance.Position = (PlayerPreviewPanel.Size / 2) - (playerInstance.Body.Size / 2);
+		PlayerPreviewModel = MainScene.PlayerLoader.InstantiatePlayer();
+		PlayerPreviewPanel.AddChild(PlayerPreviewModel);
+		PlayerPreviewModel.Position = (PlayerPreviewPanel.Size / 2) - (PlayerPreviewModel.Body.Size / 2);
 	}
 
 	public void SetupButtons()
@@ -46,20 +49,9 @@ public partial class EditPlayerMenu : Control
 		BackButton.Pressed += MainScene.MenuManager.Back;
 		ConfirmButton.Pressed += async () =>
 		{
-			var testData = new WorldData
-			{
-				VisitedStages = ["test123"],
-				NPCInteraction = [new() {
-					NPCNodePath = "test.tscn",
-					HasPlayerInteractedWith = false,
-					CompletedDialogues = [],
-					NotSeenDialogues = [],
-				}]
-			};
+			string worldSaveFileLocation = MainScene.WorldSaveFileManager.CreateNewSaveFileAndSetCurrentWorld();
 
-			var testDataJson = JsonSerializer.Serialize(testData, typeof(WorldData), GameJsonContext.Default);
-
-			MainScene.WorldSaveFileManager.CreateNewSaveFile(testData);
+			string playerSaveFileLocation = MainScene.PlayerSaveFileManager.CreateNewPlayerSaveFile(MainScene.WorldSaveFileManager.CurrentWorldSaveFolder, PlayerPreviewModel);
 
 			await MainScene.GameSceneManager.SetGameScene(FilePath.Game.Stage1);
 		};

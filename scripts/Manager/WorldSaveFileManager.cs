@@ -1,13 +1,13 @@
-using System.IO;
-using System.Linq;
 using System.Text.Json;
-using Environment;
 using Game;
 
 namespace Manager;
 
 public partial class WorldSaveFileManager : SaveFilesManager
 {
+  public string CurrentWorldSaveFile = null;
+  public string CurrentWorldSaveFolder = null;
+
   public readonly string NewWorldFolderBaseName = "world";
 
   public string CreateNewWorldFolder()
@@ -15,9 +15,18 @@ public partial class WorldSaveFileManager : SaveFilesManager
     return CreateNewSaveFolder(NewWorldFolderBaseName);
   }
 
-  public void CreateNewSaveFile(WorldData worldData)
+  public string CreateNewSaveFile(out string newWorldFolderName)
   {
-    var newWorldFolderName = CreateNewWorldFolder();
-    CreateNewSaveFile(newWorldFolderName, "world_data", JsonSerializer.Serialize(worldData, typeof(WorldData), GameJsonContext.Default));
+    newWorldFolderName = CreateNewWorldFolder();
+    return CreateNewSaveFile(newWorldFolderName, "world_data", JsonSerializer.Serialize(new WorldData
+    {
+      VisitedStages = [],
+      NPCInteraction = []
+    }, typeof(WorldData), GameJsonContext.Default));
+  }
+
+  public string CreateNewSaveFileAndSetCurrentWorld()
+  {
+    return CurrentWorldSaveFile = CreateNewSaveFile(out CurrentWorldSaveFolder);
   }
 }

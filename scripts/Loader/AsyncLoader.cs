@@ -65,14 +65,14 @@ public static class AsyncLoader
     }
 
     Array progress = new(new Variant[] { 0.0F });
-    ResourceLoader.ThreadLoadStatus status = ResourceLoader.LoadThreadedGetStatus(path, progress);
+    ResourceLoader.LoadThreadedGetStatus(path, progress);
 
     bool isLoading = true;
     do
     {
       CancellationToken.None.ThrowIfCancellationRequested();
 
-      status = ResourceLoader.LoadThreadedGetStatus(path, progress);
+      ResourceLoader.ThreadLoadStatus status = ResourceLoader.LoadThreadedGetStatus(path, progress);
 
       progressReporter.Report((float)progress[0]);
 

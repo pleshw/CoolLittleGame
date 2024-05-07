@@ -59,7 +59,7 @@ public partial class AudioManager : Node
         intro.Play();
       };
 
-      intro.Play();
+      // intro.Play();
     };
   }
 

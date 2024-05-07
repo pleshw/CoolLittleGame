@@ -25,13 +25,11 @@ public partial class SaveFilesManager : Node
 
   public static string CreateNewSaveFolder(string folderName)
   {
-    EnsureDirectoryExists(folderName, out string parentFolderPath);
-
-    string lastFolderWithSameName = GetLastSaveFolderName(parentFolderPath, folderName);
+    string lastFolderWithSameName = GetLastSaveFolderName(UserSavesDirectory, folderName);
 
     string newSaveFolderName = lastFolderWithSameName != null ? $"{folderName}{GetFolderNumber(lastFolderWithSameName) + 1}" : $"{folderName}0";
 
-    EnsureDirectoryExists(parentFolderPath + "/", newSaveFolderName, out string folderPath);
+    EnsureDirectoryExists(UserSavesDirectory, newSaveFolderName, out string folderPath);
 
     return folderPath;
   }
@@ -55,6 +53,11 @@ public partial class SaveFilesManager : Node
     if (!Directory.Exists(folderPath))
     {
       Directory.CreateDirectory(folderPath);
+    }
+
+    if (!folderPath.EndsWith('/'))
+    {
+      folderPath += '/';
     }
   }
 
@@ -101,7 +104,14 @@ public partial class SaveFilesManager : Node
   {
     string[] saveFolders = Directory.GetDirectories(folderPath, $"{folderName}*");
 
-    return saveFolders.OrderByDescending(f => new DirectoryInfo(f).LastWriteTime).FirstOrDefault();
+    string result = saveFolders.OrderByDescending(f => new DirectoryInfo(f).LastWriteTime).FirstOrDefault();
+
+    if (result is not null && !result.EndsWith('/'))
+    {
+      result += '/';
+    }
+
+    return result;
   }
 
 

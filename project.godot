@@ -24,6 +24,7 @@ ThemeManager="*res://scripts/Manager/ThemeManager.cs"
 MenuManager="*res://scripts/Manager/MenuManager.cs"
 GameSceneManager="*res://scripts/Manager/GameSceneManager.cs"
 WorldSaveFileManager="*res://scripts/Manager/WorldSaveFileManager.cs"
+PlayerSaveFileManager="*res://scripts/Manager/PlayerSaveFileManager.cs"
 
 [display]
 

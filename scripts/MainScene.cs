@@ -83,6 +83,15 @@ public partial class MainScene : Node
 		}
 	}
 
+	public PlayerSaveFileManager PlayerSaveFileManager
+	{
+		get
+		{
+			return GetNode<PlayerSaveFileManager>("/root/PlayerSaveFileManager");
+		}
+	}
+
+
 	public override void _Ready()
 	{
 		base._Ready();
