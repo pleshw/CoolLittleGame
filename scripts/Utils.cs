@@ -81,7 +81,7 @@ public static partial class Extras
 
     Vector2 currentSize = spriteTexture.GetSize();
     Vector2 scaleFactor = new(sizeToFit.X / currentSize.X, sizeToFit.Y / currentSize.Y);
-    animatedSprite.Scale = scaleFactor;
+    animatedSprite.SetDeferred(Node2D.PropertyName.Scale, scaleFactor);
   }
 
   public static string WithoutSpecialCharacters(this string input)

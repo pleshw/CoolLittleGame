@@ -14,9 +14,8 @@ namespace UI;
 
 [RequiresUnreferencedCode("")]
 [RequiresDynamicCode("")]
-public partial class PlayerCustomizationGrid : Control
+public partial class PlayerCustomizationGrid : TabContainer
 {
-  public TabContainer TabContainer;
 
   public GridContainer TabGridHats;
   public GridContainer TabGridShirts;
@@ -40,44 +39,49 @@ public partial class PlayerCustomizationGrid : Control
 
   public ResourceLoader<Resource> ResourceLoader = new();
 
+  public static readonly int ColumnsPerTab = 5;
+
   public PlayerCustomizationGrid(Entity playerModel)
   {
     PlayerModel = playerModel;
     (HatSpritesInfo, ShirtSpritesInfo, PantsSpritesInfo) = GameFilesManager.GetFileDeserialized<SerializableSpriteModel>("mainSprites.json");
 
-    TabContainer = new TabContainer();
-
     TabGridHats = new GridContainer
     {
-      Name = "Hats"
+      Name = "Hats",
+      Columns = ColumnsPerTab
     };
 
     TabGridShirts = new GridContainer
     {
-      Name = "Shirts"
+      Name = "Shirts",
+      Columns = ColumnsPerTab
     };
 
     TabGridPants = new GridContainer
     {
-      Name = "Pants"
+      Name = "Pants",
+      Columns = ColumnsPerTab
     };
 
-    TabContainer.AddChild([TabGridHats, TabGridShirts, TabGridPants]);
+    CustomMinimumSize = Vector2.Zero with { X = 400 };
+
+    this.AddChild([TabGridHats, TabGridShirts, TabGridPants]);
   }
 
   public override void _Ready()
   {
     base._Ready();
 
-    TabContainer.TabHovered += (long tab) =>
+    TabHovered += (long tab) =>
     {
-      if (tab != TabContainer.CurrentTab)
+      if (tab != CurrentTab)
       {
         // MainScene.AudioManager.PreloadedAudios["MenuHoverAction"].Play();
       }
     };
 
-    TabContainer.TabChanged += (long tab) =>
+    TabChanged += (long tab) =>
     {
       // MainScene.AudioManager.PreloadedAudios["MenuMinorConfirm2"].Play();
     };
@@ -88,6 +92,7 @@ public partial class PlayerCustomizationGrid : Control
 
   public void InstantiateSprites()
   {
+    PlayerModel.AnimationBody.Play("Showcase");
     SetupSpritesForGridContainer("hatShowcase", HatSpritesInfo, TabGridHats, PlayerModel.SpriteController.ChangeHat);
     SetupSpritesForGridContainer("shirtShowcase", ShirtSpritesInfo, TabGridShirts, PlayerModel.SpriteController.ChangeShirt);
     SetupSpritesForGridContainer("pantsShowcase", PantsSpritesInfo, TabGridPants, PlayerModel.SpriteController.ChangePants);
@@ -106,7 +111,7 @@ public partial class PlayerCustomizationGrid : Control
         temporarySpritesInstances.Remove(spriteTemporaryId);
       }
 
-      SpriteFrames newSpriteInstance = ResourceLoader.CreateInstance(tempSpriteName, spriteTemporaryId) as SpriteFrames;
+      SpriteFrames newSpriteInstance = ResourceLoader.CreateInstance("res://resources/entity/" + tempSpriteName, spriteTemporaryId) as SpriteFrames;
       temporarySpritesInstances.Add(spriteTemporaryId, newSpriteInstance);
       changePartAction(newSpriteInstance);
     }
@@ -139,10 +144,8 @@ public partial class PlayerCustomizationGrid : Control
     SpriteFrames spriteInstance = ResourceLoader.CreateInstance("res://resources/entity/" + sprite, showcaseId + sprite) as SpriteFrames;
     spriteInstance.ResourceLocalToScene = true;
 
-    int frameSizeInPixels = 80;
-
-    // Set the scale of the sprite
-    customFrameButton.Size = Vector2.One * frameSizeInPixels;
+    var customWidth = CustomMinimumSize / ColumnsPerTab;
+    customFrameButton.CustomMinimumSize = customWidth with { Y = customWidth.X };
     customFrameSprite.Centered = false;
 
     customFrameSprite.SpriteFrames = spriteInstance;

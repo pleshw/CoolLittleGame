@@ -83,15 +83,43 @@ public partial class AnimationBody : EntityBody, ISerializableAnimationBody
   {
     Stop();
 
-    List<AnimatedSprite2D> selectedParts = Parts.Where(p => p.Name == partName).ToList();
-    selectedParts.ForEach(p =>
+    Parts.ForEach(p =>
     {
-      newSprite.ResourceName = Name + partName + "SpriteFrames";
-      p.SpriteFrames = newSprite;
-      p.Play();
+      if (p.Name == partName)
+      {
+        newSprite.ResourceName = Name + partName + "SpriteFrames";
+        p.SpriteFrames = newSprite;
+      }
     });
+
+    Play();
   }
 
+
+  public void Play()
+  {
+    Freeze = false;
+    Parts.ForEach(animatedSprite =>
+    {
+      SpriteFrames spriteFrames = animatedSprite.SpriteFrames;
+      if (animatedSprite.SpriteFrames is null)
+      {
+        return;
+      }
+
+      List<string> animationNames = [.. animatedSprite.SpriteFrames.GetAnimationNames()];
+
+      if (!animationNames.Contains(AnimationPlaying))
+      {
+        return;
+      }
+
+      animatedSprite.GetParent<Node2D>().Visible = true;
+      animatedSprite.Visible = true;
+
+      animatedSprite.Play(AnimationPlaying);
+    });
+  }
 
   public void Play(StringName animationName)
   {

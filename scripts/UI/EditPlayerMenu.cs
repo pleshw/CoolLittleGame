@@ -18,6 +18,9 @@ public partial class EditPlayerMenu : Control
 	public Button BackButton { get; set; }
 
 	[Export]
+	public HBoxContainer HBoxContainer { get; set; }
+
+	[Export]
 	public Button ConfirmButton { get; set; }
 
 
@@ -46,7 +49,7 @@ public partial class EditPlayerMenu : Control
 		PlayerPreviewPanel.AddChild(PlayerPreviewModel);
 		PlayerPreviewModel.Position = (PlayerPreviewPanel.Size / 2) - (PlayerPreviewModel.AnimationBody.Size / 2);
 
-		AddChild(new PlayerCustomizationGrid(PlayerPreviewModel));
+		HBoxContainer.AddChild(new PlayerCustomizationGrid(PlayerPreviewModel));
 	}
 
 	public void SetupButtons()

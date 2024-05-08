@@ -53,37 +53,19 @@ public partial class ResourceLoader<T> : Resource where T : Resource
 
   public T CreateInstance(StringName nodePath, StringName nodeName)
   {
-    if (Preloader.HasResource(nodePath))
+    T result = GD.Load<T>(nodePath);
+    result.ResourceName = nodeName;
+
+    /// se tiver um node com mesmo nome apaga e insere o novo
+    if (!LoadedResources.TryAdd(nodeName, result))
     {
-      PackedScene preload = Preloader.GetResource(nodePath) as PackedScene;
-      T result = preload.Instantiate() as T;
-      result.ResourceName = nodeName;
-
-      /// se tiver um node com mesmo nome apaga e insere o novo
-      if (!LoadedResources.TryAdd(nodeName, result))
-      {
-        LoadedResources[nodeName].Free();
-        LoadedResources[nodeName] = result;
-      }
-
-      return result;
+      LoadedResources[nodeName].Free();
+      LoadedResources[nodeName] = result;
     }
 
-    return Load<T>(nodePath, nodeName);
+    return result;
   }
 
-  public ConvertedType Load<ConvertedType>(StringName resourcePath, StringName resourceName) where ConvertedType : Resource => Load(resourcePath, resourceName) as ConvertedType;
-
-  public Resource Load(StringName nodePath, StringName nodeName)
-  {
-    Resource resourceImported = ResourceLoader.Load(nodePath);
-    Preloader.AddResource(nodePath, resourceImported);
-    resourceImported.ResourceName = nodeName;
-
-    LoadedResources.Add(nodeName, resourceImported as T);
-
-    return resourceImported;
-  }
 
   public ConvertedType GetResource<ConvertedType>(StringName sceneName) where ConvertedType : Node
   {

@@ -7,6 +7,7 @@
 script = ExtResource("1_55bgf")
 
 [node name="Body" parent="." instance=ExtResource("1_7juyp")]
+ShouldFlipSideOnDirectionChange = null
 
 [node name="Camera" type="Camera2D" parent="."]
 enabled = false

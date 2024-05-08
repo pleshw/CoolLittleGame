@@ -1,9 +1,8 @@
-[gd_scene load_steps=3 format=3 uid="uid://cq87v4q0n2mys"]
+[gd_scene load_steps=2 format=3 uid="uid://cq87v4q0n2mys"]
 
 [ext_resource type="Script" path="res://scripts/UI/EditPlayerMenu.cs" id="1_0sxji"]
-[ext_resource type="Theme" uid="uid://cd2jrhps4l0vx" path="res://themes/main_menu.tres" id="1_yswua"]
 
-[node name="EditPlayer" type="Control" node_paths=PackedStringArray("PlayerPreviewPanel", "BackButton", "ConfirmButton")]
+[node name="EditPlayer" type="Control" node_paths=PackedStringArray("PlayerPreviewPanel", "BackButton", "HBoxContainer", "ConfirmButton")]
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
@@ -13,6 +12,7 @@ grow_vertical = 2
 script = ExtResource("1_0sxji")
 PlayerPreviewPanel = NodePath("HBoxContainer/MarginContainer/PlayerPreview")
 BackButton = NodePath("BackButton")
+HBoxContainer = NodePath("HBoxContainer")
 ConfirmButton = NodePath("ConfirmButton")
 
 [node name="Panel" type="Panel" parent="."]
@@ -61,27 +61,6 @@ custom_minimum_size = Vector2(350, 400)
 layout_mode = 2
 size_flags_horizontal = 4
 metadata/_edit_use_anchors_ = true
-
-[node name="TabContainer" type="TabContainer" parent="HBoxContainer"]
-custom_minimum_size = Vector2(400, 0)
-layout_mode = 2
-theme = ExtResource("1_yswua")
-metadata/_edit_use_anchors_ = true
-
-[node name="Body" type="Panel" parent="HBoxContainer/TabContainer"]
-layout_mode = 2
-
-[node name="Hat" type="Panel" parent="HBoxContainer/TabContainer"]
-visible = false
-layout_mode = 2
-
-[node name="Shirt" type="Panel" parent="HBoxContainer/TabContainer"]
-visible = false
-layout_mode = 2
-
-[node name="Pants" type="Panel" parent="HBoxContainer/TabContainer"]
-visible = false
-layout_mode = 2
 
 [node name="BackButton" type="Button" parent="."]
 layout_mode = 1

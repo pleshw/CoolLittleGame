@@ -1,0 +1,58 @@
+[gd_resource type="SpriteFrames" load_steps=8 format=3 uid="uid://b5emhjpgy5era"]
+
+[ext_resource type="Texture2D" uid="uid://kkdu68xwewor" path="res://packs/Tiny Swords/Tiny Swords (Update 010)/Resources/Sheep/HappySheep_Bouncing.png" id="1_2i5oe"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_5rmcj"]
+atlas = ExtResource("1_2i5oe")
+region = Rect2(0, 0, 128, 128)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_nnnro"]
+atlas = ExtResource("1_2i5oe")
+region = Rect2(128, 0, 128, 128)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_r7f54"]
+atlas = ExtResource("1_2i5oe")
+region = Rect2(256, 0, 128, 128)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_evweq"]
+atlas = ExtResource("1_2i5oe")
+region = Rect2(384, 0, 128, 128)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_1o5cg"]
+atlas = ExtResource("1_2i5oe")
+region = Rect2(512, 0, 128, 128)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_wm7s7"]
+atlas = ExtResource("1_2i5oe")
+region = Rect2(640, 0, 128, 128)
+
+[resource]
+animations = [{
+"frames": [],
+"loop": true,
+"name": &"Idle",
+"speed": 12.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_5rmcj")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_nnnro")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_r7f54")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_evweq")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_1o5cg")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_wm7s7")
+}],
+"loop": true,
+"name": &"Showcase",
+"speed": 12.0
+}]
