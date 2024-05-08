@@ -50,7 +50,7 @@ public partial class AnimationController(Entity entity) : IController
 
   public void StartEvents()
   {
-    Entity.Body.Play("Idle");
+    Entity.AnimationBody.Play("Idle");
 
     Entity.MovementController.OnEntityMoved += (from, to) => AnimationState = AnimationState.MOVING;
 
@@ -63,33 +63,33 @@ public partial class AnimationController(Entity entity) : IController
 
   public void AnimationHandler(AnimationState previousState, AnimationState currentState)
   {
-    bool animationPlaying = Entity.Body.IsPlaying();
+    bool animationPlaying = Entity.AnimationBody.IsPlaying();
     if (LockAnimations && animationPlaying)
     {
       return;
     }
 
-    Entity.Body.Stop();
+    Entity.AnimationBody.Stop();
 
-    if (Entity.Body.Freeze)
+    if (Entity.AnimationBody.Freeze)
     {
       return;
     }
 
-    if (Entity.Body.ShouldFlipSideOnDirectionChange)
+    if (Entity.AnimationBody.ShouldFlipSideOnDirectionChange)
     {
       Direction side = Entity.MovementController.FacingDirectionVector.GetSide();
       if (side == Direction.LEFT)
       {
-        Entity.Body.Parts.ForEach(p => p.FlipH = true);
+        Entity.AnimationBody.Parts.ForEach(p => p.FlipH = true);
       }
       else
       {
-        Entity.Body.Parts.ForEach(p => p.FlipH = false);
+        Entity.AnimationBody.Parts.ForEach(p => p.FlipH = false);
       }
     }
 
-    Entity.Body.EmitSignal(AnimatedSprite2D.SignalName.AnimationFinished);
+    Entity.AnimationBody.EmitSignal(AnimatedSprite2D.SignalName.AnimationFinished);
 
     switch (currentState)
     {
@@ -97,10 +97,10 @@ public partial class AnimationController(Entity entity) : IController
         PlayAttackAnimation();
         return;
       case AnimationState.IDLE:
-        Entity.Body.Play("Idle");
+        Entity.AnimationBody.Play("Idle");
         return;
       case AnimationState.MOVING:
-        Entity.Body.Play("Moving" + Entity.MovementController.FacingDirectionVector.GetSimplifiedDirectionName());
+        Entity.AnimationBody.Play("Moving" + Entity.MovementController.FacingDirectionVector.GetSimplifiedDirectionName());
         return;
       case AnimationState.DASHING:
         PlayDashAnimation();
@@ -129,7 +129,7 @@ public partial class AnimationController(Entity entity) : IController
       LockAnimations = false;
     }
 
-    Entity.Body.Play(animationRequest with
+    Entity.AnimationBody.Play(animationRequest with
     {
       OnFrameChange = _onFrameChange,
       OnFinished = _onFinished
@@ -172,7 +172,7 @@ public partial class AnimationController(Entity entity) : IController
 
   public void PlayDashAnimation()
   {
-    Entity.Body.Play(new AnimationRequestInput()
+    Entity.AnimationBody.Play(new AnimationRequestInput()
     {
       Name = "Dashing",
       OnFrameChange = (animatedSprite, initialTransform, currentFrame, animationFrameCount) =>

@@ -12,6 +12,14 @@ public static partial class Extras
     return Math.Abs(val);
   }
 
+  public static void AddChild(this CanvasItem canvasItem, CanvasItem[] items)
+  {
+    foreach (var item in items)
+    {
+      canvasItem.AddChild(item);
+    }
+  }
+
   public static int DistanceInCells(this Node2D origin, Node2D target2, int cellWidth) => origin.Position.DistanceInCells(target2, cellWidth);
   public static int DistanceInCells(this Node2D origin, Vector2 target2, int cellWidth) => origin.Position.DistanceInCells(target2, cellWidth);
   public static int DistanceInCells(this Vector2 origin, Node2D target2, int cellWidth) => origin.DistanceInCells(target2.Position, cellWidth);
@@ -59,7 +67,7 @@ public static partial class Extras
     };
   }
 
-  public static void ResizeUsingScale(this AnimatedSprite2D animatedSprite, Vector2 sizeToFit)
+  public static void ResizeToFit(this AnimatedSprite2D animatedSprite, Vector2 sizeToFit)
   {
     SpriteFrames spriteFrames = animatedSprite.SpriteFrames;
     string referenceAnimation = spriteFrames.GetAnimationNames()[0] ?? throw new Exception("Sprite have no animations");

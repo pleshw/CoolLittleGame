@@ -3,6 +3,7 @@ using System.Text.Json.Serialization;
 using Environment;
 using Game;
 using Interfaces;
+using UI;
 
 namespace Manager;
 
@@ -17,7 +18,9 @@ namespace Manager;
 [JsonSerializable(typeof(NPCInteraction)), JsonSerializable(typeof(List<NPCInteraction>))]
 [JsonSerializable(typeof(DialogueNode)), JsonSerializable(typeof(List<DialogueNode>))]
 [JsonSerializable(typeof(Quest)), JsonSerializable(typeof(QuestStep)), JsonSerializable(typeof(List<Quest>)), JsonSerializable(typeof(List<QuestStep>))]
-[JsonSerializable(typeof(string)), JsonSerializable(typeof(Dictionary<string, string>)), JsonSerializable(typeof(List<string>)), JsonSerializable(typeof(float)), JsonSerializable(typeof(List<float>)), JsonSerializable(typeof(bool)), JsonSerializable(typeof(List<bool>))]
+[JsonSerializable(typeof(string)), JsonSerializable(typeof(Dictionary<string, string>)), JsonSerializable(typeof(List<string>)), JsonSerializable(typeof(List<string[]>)), JsonSerializable(typeof(float)), JsonSerializable(typeof(List<float>)), JsonSerializable(typeof(bool)), JsonSerializable(typeof(List<bool>))]
+[JsonSerializable(typeof(SerializableSpriteInfo)), JsonSerializable(typeof(List<SerializableSpriteInfo>))]
+[JsonSerializable(typeof(SerializableSpriteModel)), JsonSerializable(typeof(List<SerializableSpriteModel>))]
 internal partial class GameJsonContext : JsonSerializerContext
 {
 }

@@ -12,7 +12,7 @@ public partial class Entity : Node2D, ISerializableEntity
   public int Level { get; set; } = 1;
 
   private AnimationBody _body;
-  public AnimationBody Body
+  public AnimationBody AnimationBody
   {
     get
     {
@@ -21,16 +21,15 @@ public partial class Entity : Node2D, ISerializableEntity
     }
   }
 
-  public ISerializableAnimationBody SerializableBody
+  public ISerializableAnimationBody Body
   {
     get
     {
-      return Body;
+      return AnimationBody;
     }
   }
 
-
-  public EntityAttributes Attributes = new();
+  public EntityAttributes Attributes { get; set; } = new();
 
   public MovementController MovementController;
   public CombatController CombatController;

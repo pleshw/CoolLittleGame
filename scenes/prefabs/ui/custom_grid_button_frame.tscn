@@ -1,0 +1,13 @@
+[gd_scene load_steps=2 format=3 uid="uid://cmxclepdtn4ld"]
+
+[ext_resource type="SpriteFrames" uid="uid://bw5sytt8teu6d" path="res://resources/ui/empty_grid_button_frame.tres" id="1_l12n5"]
+
+[node name="CustomGridButtonFrame" type="Button"]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+sprite_frames = ExtResource("1_l12n5")

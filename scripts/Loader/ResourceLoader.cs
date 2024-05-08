@@ -74,17 +74,15 @@ public partial class ResourceLoader<T> : Resource where T : Resource
 
   public ConvertedType Load<ConvertedType>(StringName resourcePath, StringName resourceName) where ConvertedType : Resource => Load(resourcePath, resourceName) as ConvertedType;
 
-  public Node Load(StringName nodePath, StringName nodeName)
+  public Resource Load(StringName nodePath, StringName nodeName)
   {
-    PackedScene nodeImported = ResourceLoader.Load(nodePath) as PackedScene;
-    Preloader.AddResource(nodePath, nodeImported);
+    Resource resourceImported = ResourceLoader.Load(nodePath);
+    Preloader.AddResource(nodePath, resourceImported);
+    resourceImported.ResourceName = nodeName;
 
-    Node result = nodeImported.Instantiate();
-    result.Name = nodeName;
+    LoadedResources.Add(nodeName, resourceImported as T);
 
-    LoadedResources.Add(nodeName, result as T);
-
-    return result;
+    return resourceImported;
   }
 
   public ConvertedType GetResource<ConvertedType>(StringName sceneName) where ConvertedType : Node

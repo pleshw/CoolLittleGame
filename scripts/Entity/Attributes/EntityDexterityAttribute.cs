@@ -1,6 +1,3 @@
-using System;
-using Godot;
-
 namespace Game;
 
 public static partial class Attributes

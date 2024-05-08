@@ -10,21 +10,21 @@ public partial class SpriteController(Entity entity) : ResourceLoader<SpriteFram
 
   public void ChangeHat(SpriteFrames newSprite)
   {
-    Entity.Body.ChangePart("Hat", newSprite);
+    Entity.AnimationBody.ChangePart("Hat", newSprite);
   }
 
   public void ChangeShirt(SpriteFrames newSprite)
   {
-    Entity.Body.ChangePart("Shirt", newSprite);
+    Entity.AnimationBody.ChangePart("Shirt", newSprite);
   }
 
   public void ChangePants(SpriteFrames newSprite)
   {
-    Entity.Body.ChangePart("Pants", newSprite);
+    Entity.AnimationBody.ChangePart("Pants", newSprite);
   }
 
   public void ChangeBody(SpriteFrames newSprite)
   {
-    Entity.Body.ChangePart("Body", newSprite);
+    Entity.AnimationBody.ChangePart("Body", newSprite);
   }
 }

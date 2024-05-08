@@ -1,6 +1,7 @@
-[gd_resource type="SpriteFrames" load_steps=32 format=3 uid="uid://dtnkrbtucpx4a"]
+[gd_resource type="SpriteFrames" load_steps=39 format=3 uid="uid://dtnkrbtucpx4a"]
 
 [ext_resource type="Texture2D" uid="uid://pmes2dqx55x2" path="res://packs/Tiny Swords/Tiny Swords (Update 010)/Factions/Knights/Troops/Archer/Red/Archer_Red.png" id="1_n1nni"]
+[ext_resource type="Texture2D" uid="uid://iflld7pa16hb" path="res://packs/Tiny Swords/Tiny Swords (Update 010)/Factions/Knights/Troops/Pawn/Red/Pawn_Red.png" id="2_v7b8a"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_5enad"]
 atlas = ExtResource("1_n1nni")
@@ -122,6 +123,30 @@ region = Rect2(768, 192, 192, 192)
 atlas = ExtResource("1_n1nni")
 region = Rect2(960, 192, 192, 192)
 
+[sub_resource type="AtlasTexture" id="AtlasTexture_4fvpo"]
+atlas = ExtResource("2_v7b8a")
+region = Rect2(0, 0, 192, 192)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_b54wv"]
+atlas = ExtResource("2_v7b8a")
+region = Rect2(192, 0, 192, 192)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_xxa5e"]
+atlas = ExtResource("2_v7b8a")
+region = Rect2(384, 0, 192, 192)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_sjwws"]
+atlas = ExtResource("2_v7b8a")
+region = Rect2(576, 0, 192, 192)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_pvy4f"]
+atlas = ExtResource("2_v7b8a")
+region = Rect2(768, 0, 192, 192)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_1jwi6"]
+atlas = ExtResource("2_v7b8a")
+region = Rect2(960, 0, 192, 192)
+
 [resource]
 resource_local_to_scene = true
 animations = [{
@@ -238,5 +263,28 @@ animations = [{
 }],
 "loop": true,
 "name": &"MovingTop",
+"speed": 12.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_4fvpo")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_b54wv")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_xxa5e")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_sjwws")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_pvy4f")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_1jwi6")
+}],
+"loop": true,
+"name": &"Showcase",
 "speed": 12.0
 }]

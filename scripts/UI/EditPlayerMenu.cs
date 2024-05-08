@@ -1,13 +1,14 @@
-using System;
-using System.Text.Json;
+using System.Diagnostics.CodeAnalysis;
 using Game;
 using Godot;
 using GodotPath;
+using Loader;
 using Main;
-using Manager;
 
 namespace UI;
 
+[RequiresUnreferencedCode("")]
+[RequiresDynamicCode("")]
 public partial class EditPlayerMenu : Control
 {
 	[Export]
@@ -18,6 +19,9 @@ public partial class EditPlayerMenu : Control
 
 	[Export]
 	public Button ConfirmButton { get; set; }
+
+
+	public PlayerCustomizationGrid PlayerCustomizationGrid { get; set; }
 
 	public Entity PlayerPreviewModel { get; set; }
 
@@ -40,7 +44,9 @@ public partial class EditPlayerMenu : Control
 	{
 		PlayerPreviewModel = MainScene.PlayerLoader.InstantiatePlayer();
 		PlayerPreviewPanel.AddChild(PlayerPreviewModel);
-		PlayerPreviewModel.Position = (PlayerPreviewPanel.Size / 2) - (PlayerPreviewModel.Body.Size / 2);
+		PlayerPreviewModel.Position = (PlayerPreviewPanel.Size / 2) - (PlayerPreviewModel.AnimationBody.Size / 2);
+
+		AddChild(new PlayerCustomizationGrid(PlayerPreviewModel));
 	}
 
 	public void SetupButtons()
