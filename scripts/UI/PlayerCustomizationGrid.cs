@@ -16,7 +16,7 @@ namespace UI;
 [RequiresDynamicCode("")]
 public partial class PlayerCustomizationGrid : TabContainer
 {
-
+  public GridContainer TabGridBodies;
   public GridContainer TabGridHats;
   public GridContainer TabGridShirts;
   public GridContainer TabGridPants;
@@ -31,6 +31,9 @@ public partial class PlayerCustomizationGrid : TabContainer
 
   public Entity PlayerModel;
 
+
+  public readonly SerializableSpriteModel SpriteModel;
+  public readonly SerializableSpriteInfo BodySpritesInfo;
   public readonly SerializableSpriteInfo HatSpritesInfo;
   public readonly SerializableSpriteInfo ShirtSpritesInfo;
   public readonly SerializableSpriteInfo PantsSpritesInfo;
@@ -44,7 +47,14 @@ public partial class PlayerCustomizationGrid : TabContainer
   public PlayerCustomizationGrid(Entity playerModel)
   {
     PlayerModel = playerModel;
-    (HatSpritesInfo, ShirtSpritesInfo, PantsSpritesInfo) = GameFilesManager.GetFileDeserialized<SerializableSpriteModel>("mainSprites.json");
+    SpriteModel = GameFilesManager.GetFileDeserialized<SerializableSpriteModel>("mainSprites.json");
+    (BodySpritesInfo, HatSpritesInfo, ShirtSpritesInfo, PantsSpritesInfo) = SpriteModel;
+
+    TabGridBodies = new GridContainer
+    {
+      Name = "Body",
+      Columns = ColumnsPerTab
+    };
 
     TabGridHats = new GridContainer
     {
@@ -66,7 +76,7 @@ public partial class PlayerCustomizationGrid : TabContainer
 
     CustomMinimumSize = Vector2.Zero with { X = 400 };
 
-    this.AddChild([TabGridHats, TabGridShirts, TabGridPants]);
+    this.AddChild([TabGridBodies, TabGridHats, TabGridShirts, TabGridPants]);
   }
 
   public override void _Ready()
@@ -92,10 +102,13 @@ public partial class PlayerCustomizationGrid : TabContainer
 
   public void InstantiateSprites()
   {
+    PlayerModel.SpriteController.SetDefault(SpriteModel);
+
     PlayerModel.AnimationBody.Play("Showcase");
-    SetupSpritesForGridContainer("hatShowcase", HatSpritesInfo, TabGridHats, PlayerModel.SpriteController.ChangeHat);
-    SetupSpritesForGridContainer("shirtShowcase", ShirtSpritesInfo, TabGridShirts, PlayerModel.SpriteController.ChangeShirt);
-    SetupSpritesForGridContainer("pantsShowcase", PantsSpritesInfo, TabGridPants, PlayerModel.SpriteController.ChangePants);
+    SetupSpritesForGridContainer("BodyShowcase", BodySpritesInfo, TabGridBodies, PlayerModel.SpriteController.ChangeBody);
+    SetupSpritesForGridContainer("HatShowcase", HatSpritesInfo, TabGridHats, PlayerModel.SpriteController.ChangeHat);
+    SetupSpritesForGridContainer("ShirtShowcase", ShirtSpritesInfo, TabGridShirts, PlayerModel.SpriteController.ChangeShirt);
+    SetupSpritesForGridContainer("PantsShowcase", PantsSpritesInfo, TabGridPants, PlayerModel.SpriteController.ChangePants);
   }
 
   private readonly Dictionary<string, SpriteFrames> temporarySpritesInstances = [];
@@ -144,12 +157,20 @@ public partial class PlayerCustomizationGrid : TabContainer
     SpriteFrames spriteInstance = ResourceLoader.CreateInstance("res://resources/entity/" + sprite, showcaseId + sprite) as SpriteFrames;
     spriteInstance.ResourceLocalToScene = true;
 
-    var customWidth = CustomMinimumSize / ColumnsPerTab;
-    customFrameButton.CustomMinimumSize = customWidth with { Y = customWidth.X };
-    customFrameSprite.Centered = false;
+    var customWidth = Vector2.One * (CustomMinimumSize.X / ColumnsPerTab);
+    customFrameButton.CustomMinimumSize = customWidth;
+    customFrameSprite.Centered = true;
 
     customFrameSprite.SpriteFrames = spriteInstance;
-    customFrameSprite.ResizeToFit(customFrameButton.Size);
+    customFrameSprite.ResizeToFit(customWidth);
+
+    Vector2 spriteSize = customFrameSprite.GetSize();
+    customFrameSprite.SetDeferred(Control.PropertyName.Position, new Vector2
+    {
+      X = customFrameButton.CustomMinimumSize.X / 2,
+      Y = customFrameButton.CustomMinimumSize.Y / 2
+    });
+
     customFrameSprite.Play("Showcase");
 
     customFrameButton.Pressed += () =>

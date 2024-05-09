@@ -69,6 +69,19 @@ public static partial class Extras
 
   public static void ResizeToFit(this AnimatedSprite2D animatedSprite, Vector2 sizeToFit)
   {
+    Vector2 currentSize = animatedSprite.GetSize();
+
+    if (currentSize == Vector2.Zero)
+    {
+      return;
+    }
+
+    Vector2 scaleFactor = new(sizeToFit.X / currentSize.X, sizeToFit.Y / currentSize.Y);
+    animatedSprite.Scale = scaleFactor;
+  }
+
+  public static Vector2 GetSize(this AnimatedSprite2D animatedSprite)
+  {
     SpriteFrames spriteFrames = animatedSprite.SpriteFrames;
     string referenceAnimation = spriteFrames.GetAnimationNames()[0] ?? throw new Exception("Sprite have no animations");
 
@@ -76,12 +89,10 @@ public static partial class Extras
 
     if (spriteTexture == null)
     {
-      return;
+      return Vector2.Zero;
     }
 
-    Vector2 currentSize = spriteTexture.GetSize();
-    Vector2 scaleFactor = new(sizeToFit.X / currentSize.X, sizeToFit.Y / currentSize.Y);
-    animatedSprite.SetDeferred(Node2D.PropertyName.Scale, scaleFactor);
+    return spriteTexture.GetSize();
   }
 
   public static string WithoutSpecialCharacters(this string input)

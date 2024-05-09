@@ -7,7 +7,6 @@ namespace Game;
 
 public partial class Entity : Node2D, ISerializableEntity
 {
-
   public string DisplayName { get; set; } = "";
   public int Level { get; set; } = 1;
 

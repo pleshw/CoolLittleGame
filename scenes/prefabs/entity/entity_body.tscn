@@ -24,18 +24,18 @@ sprite_frames = ExtResource("2_o2iu1")
 animation = &"Idle"
 
 [node name="Hat" type="AnimatedSprite2D" parent="."]
-position = Vector2(0, -11)
+position = Vector2(0, -20)
 sprite_frames = ExtResource("3_foy41")
 animation = &"Showcase"
 
 [node name="Shirt" type="AnimatedSprite2D" parent="."]
-position = Vector2(-0.5, 4)
+position = Vector2(0, 18)
 scale = Vector2(0.6875, 0.0833333)
 sprite_frames = ExtResource("4_u5jly")
 animation = &"Idle"
 
 [node name="Pants" type="AnimatedSprite2D" parent="."]
-position = Vector2(0, 5)
+position = Vector2(-1, 23)
 scale = Vector2(0.53125, 0.15625)
 sprite_frames = ExtResource("5_m4vwi")
 animation = &"Idle"

@@ -47,7 +47,7 @@ public partial class EditPlayerMenu : Control
 	{
 		PlayerPreviewModel = MainScene.PlayerLoader.InstantiatePlayer();
 		PlayerPreviewPanel.AddChild(PlayerPreviewModel);
-		PlayerPreviewModel.Position = (PlayerPreviewPanel.Size / 2) - (PlayerPreviewModel.AnimationBody.Size / 2);
+		PlayerPreviewModel.Position = PlayerPreviewPanel.Size / 2;
 
 		HBoxContainer.AddChild(new PlayerCustomizationGrid(PlayerPreviewModel));
 	}
