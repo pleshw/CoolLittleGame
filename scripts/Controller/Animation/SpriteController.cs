@@ -42,7 +42,7 @@ public partial class SpriteController(Entity entity) : ResourceLoader<SpriteFram
     SpriteFrames pantsSprite = ResourceLoader.CreateInstance(EntityResourcesFolder + model.HatSprites.DefaultSprite, Entity.Name + "TemporarySpriteNamePantsShowcase") as SpriteFrames;
     ChangePants(pantsSprite);
 
-    SpriteFrames bodySprite = ResourceLoader.CreateInstance(EntityResourcesFolder + model.HatSprites.DefaultSprite, Entity.Name + "TemporarySpriteNameBodyShowcase") as SpriteFrames;
+    SpriteFrames bodySprite = ResourceLoader.CreateInstance(EntityResourcesFolder + model.BodySprites.DefaultSprite, Entity.Name + "TemporarySpriteNameBodyShowcase") as SpriteFrames;
     ChangeBody(bodySprite);
   }
 }

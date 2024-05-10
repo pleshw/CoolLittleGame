@@ -59,7 +59,7 @@ public partial class ResourceLoader<T> : Resource where T : Resource
     /// se tiver um node com mesmo nome apaga e insere o novo
     if (!LoadedResources.TryAdd(nodeName, result))
     {
-      LoadedResources[nodeName].Free();
+      LoadedResources[nodeName].Dispose();
       LoadedResources[nodeName] = result;
     }
 
@@ -76,7 +76,7 @@ public partial class ResourceLoader<T> : Resource where T : Resource
   {
     foreach (var item in LoadedResources)
     {
-      item.Value.Free();
+      item.Value.Dispose();
     }
   }
 }

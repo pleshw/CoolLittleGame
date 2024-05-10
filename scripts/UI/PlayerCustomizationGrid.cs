@@ -105,6 +105,7 @@ public partial class PlayerCustomizationGrid : TabContainer
     PlayerModel.SpriteController.SetDefault(SpriteModel);
 
     PlayerModel.AnimationBody.Play("Showcase");
+
     SetupSpritesForGridContainer("BodyShowcase", BodySpritesInfo, TabGridBodies, PlayerModel.SpriteController.ChangeBody);
     SetupSpritesForGridContainer("HatShowcase", HatSpritesInfo, TabGridHats, PlayerModel.SpriteController.ChangeHat);
     SetupSpritesForGridContainer("ShirtShowcase", ShirtSpritesInfo, TabGridShirts, PlayerModel.SpriteController.ChangeShirt);
@@ -117,14 +118,29 @@ public partial class PlayerCustomizationGrid : TabContainer
     void _setTestSprite(string tempSpriteName)
     {
       string spriteTemporaryId = PlayerModel.Name + "TemporarySpriteName" + showcaseId;
+      string currentPartResourcePath = "res://resources/entity/" + tempSpriteName;
 
       if (temporarySpritesInstances.TryGetValue(spriteTemporaryId, out SpriteFrames dictSpriteInstance))
       {
-        dictSpriteInstance.Free();
-        temporarySpritesInstances.Remove(spriteTemporaryId);
+        try
+        {
+          if (currentPartResourcePath != dictSpriteInstance.ResourcePath)
+          {
+            dictSpriteInstance.Dispose();
+            temporarySpritesInstances.Remove(spriteTemporaryId);
+          }
+          else
+          {
+            return;
+          }
+        }
+        catch
+        {
+          temporarySpritesInstances.Remove(spriteTemporaryId);
+        }
       }
 
-      SpriteFrames newSpriteInstance = ResourceLoader.CreateInstance("res://resources/entity/" + tempSpriteName, spriteTemporaryId) as SpriteFrames;
+      SpriteFrames newSpriteInstance = ResourceLoader.CreateInstance(currentPartResourcePath, spriteTemporaryId) as SpriteFrames;
       temporarySpritesInstances.Add(spriteTemporaryId, newSpriteInstance);
       changePartAction(newSpriteInstance);
     }
