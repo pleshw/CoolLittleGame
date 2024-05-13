@@ -23,8 +23,8 @@ AudioManager="*res://scripts/Manager/AudioManager.cs"
 ThemeManager="*res://scripts/Manager/ThemeManager.cs"
 MenuManager="*res://scripts/Manager/MenuManager.cs"
 GameSceneManager="*res://scripts/Manager/GameSceneManager.cs"
-WorldSaveFileManager="*res://scripts/Manager/WorldSaveFileManager.cs"
-PlayerSaveFileManager="*res://scripts/Manager/PlayerSaveFileManager.cs"
+WorldFileManager="*res://scripts/Manager/WorldFileManager.cs"
+PlayerFileManager="*res://scripts/Manager/PlayerFileManager.cs"
 
 [display]
 

@@ -1,11 +1,17 @@
+using System.Collections.Generic;
 using System.Diagnostics.CodeAnalysis;
 using System.IO;
 using System.Text.Json;
+using Controller;
+using Game;
 using Godot;
 using Manager;
 
 namespace GameManager;
 
+
+[RequiresUnreferencedCode("")]
+[RequiresDynamicCode("")]
 public static class GameFilesManager
 {
   public static string UserData
@@ -33,13 +39,16 @@ public static class GameFilesManager
     CreateFile(fileName, JsonSerializer.Serialize(fileData, typeof(T), GameJsonContext.Default));
   }
 
-  [RequiresUnreferencedCode("")]
-  [RequiresDynamicCode("")]
   public static T GetFileDeserialized<T>(string fileName) where T : class
+  {
+    return GetFileDeserialized<T>(UserData, fileName);
+  }
+
+  public static T GetFileDeserialized<T>(string folderName, string fileName) where T : class
   {
     T data;
 
-    fileName = Path.Join(UserData, fileName);
+    fileName = Path.Join(folderName, fileName);
 
     if (!File.Exists(fileName))
     {
@@ -58,5 +67,48 @@ public static class GameFilesManager
       GD.Print("Error reading file: " + ex.Message);
       return default;
     }
+  }
+
+  public static void TestSerializeDeserialize()
+  {
+    var subject = new EntityDefaultAttributes();
+    var test = JsonSerializer.Serialize(subject);
+    var test2 = JsonSerializer.Deserialize<EntityDefaultAttributes>(test);
+    var test3 = JsonSerializer.Deserialize<EntityDefaultAttributes>("""
+        {
+          "Attributes": {
+              "Agility": {
+                "Points": 0,
+                "Name": "Agility",
+                "Abbreviation": "agi"
+              },
+              "Dexterity": {
+                "Points": 0,
+                "Name": "Dexterity",
+                "Abbreviation": "dex"
+              },
+              "Intelligence": {
+                "Points": 0,
+                "Name": "Intelligence",
+                "Abbreviation": "int"
+              },
+              "Luck": {
+                "Points": 0,
+                "Name": "Luck",
+                "Abbreviation": "luk"
+              },
+              "Strength": {
+                "Points": 0,
+                "Name": "Strength",
+                "Abbreviation": "str"
+              },
+              "Vitality": {
+                "Points": 0,
+                "Name": "Vitality",
+                "Abbreviation": "vit"
+              }
+          }
+        }
+      """);
   }
 }

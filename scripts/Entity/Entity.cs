@@ -20,15 +20,15 @@ public partial class Entity : Node2D, ISerializableEntity
     }
   }
 
-  public ISerializableAnimationBody Body
+  public SerializableAnimationBody Body
   {
     get
     {
-      return AnimationBody;
+      return (SerializableAnimationBody)AnimationBody;
     }
   }
 
-  public EntityAttributes Attributes { get; set; } = new();
+  public EntityDefaultAttributes Attributes { get; set; } = new();
 
   public MovementController MovementController;
   public CombatController CombatController;
@@ -43,10 +43,18 @@ public partial class Entity : Node2D, ISerializableEntity
     SpriteController = new(this);
   }
 
+  public Entity(SerializableEntity serializableEntity) : this()
+  {
+    DisplayName = serializableEntity.DisplayName;
+    Level = serializableEntity.Level;
+    SpriteController.CustomBody = serializableEntity.Body;
+  }
+
   public override void _Ready()
   {
     base._Ready();
     AddToGroup("Entities");
+    SpriteController.SetCustomBody();
     AnimationController.StartEvents();
   }
 

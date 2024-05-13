@@ -58,11 +58,13 @@ public partial class EditPlayerMenu : Control
 		BackButton.Pressed += MainScene.MenuManager.Back;
 		ConfirmButton.Pressed += async () =>
 		{
-			string worldSaveFileLocation = MainScene.WorldSaveFileManager.CreateNewSaveFileAndSetCurrentWorld();
+			string worldSaveFileLocation = MainScene.WorldFileManager.CreateNewSaveFileAndSetCurrentWorld();
 
-			string playerSaveFileLocation = MainScene.PlayerSaveFileManager.CreateNewPlayerSaveFile(MainScene.WorldSaveFileManager.CurrentWorldSaveFolder, PlayerPreviewModel);
+			string playerSaveFileLocation = MainScene.PlayerFileManager.CreateNewPlayerSaveFile(PlayerPreviewModel);
 
 			await MainScene.GameSceneManager.SetGameScene(FilePath.Game.Stage1);
+
+			MainScene.PlayerFileManager.LoadPlayerFromSaveFile();
 		};
 	}
 }

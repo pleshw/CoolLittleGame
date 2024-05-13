@@ -263,4 +263,9 @@ public partial class AnimationBody : EntityBody, ISerializableAnimationBody
       animatedSprite.SpeedScale = scale;
     });
   }
+
+  public static explicit operator SerializableAnimationBody(AnimationBody body)
+  {
+    return new SerializableAnimationBody(body.ResourcePathByPart);
+  }
 }

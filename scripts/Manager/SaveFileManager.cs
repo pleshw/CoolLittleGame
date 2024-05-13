@@ -38,7 +38,7 @@ public partial class SaveFilesManager : Node
   {
     string lastSaveFile = GetLastSaveFileName(validFolderPath, fileName);
 
-    string newSaveFileName = lastSaveFile != null ? $"{fileName}{GetFileNumber(lastSaveFile) + 1}.json" : $"{fileName}0.json";
+    string newSaveFileName = lastSaveFile != null ? $"{fileName}{GetFileNumber(lastSaveFile) + 1}.json" : $"{fileName}.json";
 
     string filePath = Path.Join(validFolderPath, newSaveFileName);
 

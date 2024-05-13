@@ -3,7 +3,7 @@ using Game;
 
 namespace Manager;
 
-public partial class WorldSaveFileManager : SaveFilesManager
+public partial class WorldFileManager : SaveFilesManager
 {
   public string CurrentWorldSaveFile = null;
   public string CurrentWorldSaveFolder = null;

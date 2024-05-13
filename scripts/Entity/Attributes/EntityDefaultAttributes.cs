@@ -1,24 +1,46 @@
 using System.Text.Json.Serialization;
+using static Game.Attributes;
 
 namespace Game;
 
-public record struct EntityAttributes()
+public record struct EntityDefaultAttributes
 {
   [JsonInclude]
-  public EntityAttribute Agility = new Attributes.Agility();
+  public Agility Agility { get; set; }
 
   [JsonInclude]
-  public EntityAttribute Dexterity = new Attributes.Dexterity();
+  public Dexterity Dexterity { get; set; }
 
   [JsonInclude]
-  public EntityAttribute Intelligence = new Attributes.Intelligence();
+  public Intelligence Intelligence { get; set; }
 
   [JsonInclude]
-  public EntityAttribute Luck = new Attributes.Luck();
+  public Luck Luck { get; set; }
 
   [JsonInclude]
-  public EntityAttribute Strength = new Attributes.Strength();
+  public Strength Strength { get; set; }
 
   [JsonInclude]
-  public EntityAttribute Vitality = new Attributes.Vitality();
+  public Vitality Vitality { get; set; }
+
+  public EntityDefaultAttributes()
+  {
+    Agility = new();
+    Dexterity = new();
+    Intelligence = new();
+    Luck = new();
+    Strength = new();
+    Vitality = new();
+  }
+
+  [JsonConstructor]
+  public EntityDefaultAttributes(Agility Agility, Dexterity Dexterity, Intelligence Intelligence, Luck Luck, Strength Strength, Vitality Vitality)
+  {
+    this.Agility = Agility ?? new();
+    this.Dexterity = Dexterity ?? new();
+    this.Intelligence = Intelligence ?? new();
+    this.Luck = Luck ?? new();
+    this.Strength = Strength ?? new();
+    this.Vitality = Vitality ?? new();
+  }
 }

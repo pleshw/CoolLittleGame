@@ -79,7 +79,7 @@ public static partial class Extras
     Vector2 scaleFactor = new(sizeToFit.X / currentSize.X, sizeToFit.Y / currentSize.Y);
     animatedSprite.Scale = scaleFactor;
   }
-
+  
   public static Vector2 GetSize(this AnimatedSprite2D animatedSprite)
   {
     SpriteFrames spriteFrames = animatedSprite.SpriteFrames;

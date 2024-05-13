@@ -76,19 +76,19 @@ public partial class MainScene : Node
 		}
 	}
 
-	public WorldSaveFileManager WorldSaveFileManager
+	public WorldFileManager WorldFileManager
 	{
 		get
 		{
-			return GetNode<WorldSaveFileManager>("/root/WorldSaveFileManager");
+			return GetNode<WorldFileManager>("/root/WorldFileManager");
 		}
 	}
 
-	public PlayerSaveFileManager PlayerSaveFileManager
+	public PlayerFileManager PlayerFileManager
 	{
 		get
 		{
-			return GetNode<PlayerSaveFileManager>("/root/PlayerSaveFileManager");
+			return GetNode<PlayerFileManager>("/root/PlayerFileManager");
 		}
 	}
 

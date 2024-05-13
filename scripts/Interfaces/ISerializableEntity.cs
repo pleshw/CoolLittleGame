@@ -1,4 +1,5 @@
 using System.Text.Json.Serialization;
+using Controller;
 using Game;
 
 namespace Interfaces;
@@ -17,8 +18,8 @@ public interface ISerializableEntity
   int Level { get; set; }
 
   [JsonInclude]
-  ISerializableAnimationBody Body { get; }
+  SerializableAnimationBody Body { get; }
 
   [JsonInclude]
-  EntityAttributes Attributes { get; set; }
+  EntityDefaultAttributes Attributes { get; set; }
 }

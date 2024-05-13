@@ -1,5 +1,7 @@
+using System;
 using Game;
 using Godot;
+using Interfaces;
 using Loader;
 using UI;
 
@@ -10,6 +12,8 @@ public partial class SpriteController(Entity entity) : ResourceLoader<SpriteFram
   public Entity Entity = entity;
   public static readonly string EntityResourcesFolder = "res://resources/entity/";
   public ResourceLoader<Resource> ResourceLoader = new();
+
+  public SerializableAnimationBody CustomBody = null;
 
   public void ChangeHat(SpriteFrames newSprite)
   {
@@ -33,16 +37,33 @@ public partial class SpriteController(Entity entity) : ResourceLoader<SpriteFram
 
   public void SetDefault(SerializableSpriteModel model)
   {
-    SpriteFrames hatSprite = ResourceLoader.CreateInstance(EntityResourcesFolder + model.HatSprites.DefaultSprite, Entity.Name + "TemporarySpriteNameHatShowcase") as SpriteFrames;
+    SpriteFrames hatSprite = ResourceLoader.CreateInstance(EntityResourcesFolder + model.HatSprites.DefaultSprite, Entity.Name + "DefaultSpriteHatShowcase") as SpriteFrames;
     ChangeHat(hatSprite);
 
-    SpriteFrames shirtSprite = ResourceLoader.CreateInstance(EntityResourcesFolder + model.HatSprites.DefaultSprite, Entity.Name + "TemporarySpriteNameShirtShowcase") as SpriteFrames;
+    SpriteFrames shirtSprite = ResourceLoader.CreateInstance(EntityResourcesFolder + model.ShirtSprites.DefaultSprite, Entity.Name + "DefaultSpriteShirtShowcase") as SpriteFrames;
     ChangeShirt(shirtSprite);
 
-    SpriteFrames pantsSprite = ResourceLoader.CreateInstance(EntityResourcesFolder + model.HatSprites.DefaultSprite, Entity.Name + "TemporarySpriteNamePantsShowcase") as SpriteFrames;
+    SpriteFrames pantsSprite = ResourceLoader.CreateInstance(EntityResourcesFolder + model.PantsSprites.DefaultSprite, Entity.Name + "DefaultSpritePantsShowcase") as SpriteFrames;
     ChangePants(pantsSprite);
 
-    SpriteFrames bodySprite = ResourceLoader.CreateInstance(EntityResourcesFolder + model.BodySprites.DefaultSprite, Entity.Name + "TemporarySpriteNameBodyShowcase") as SpriteFrames;
+    SpriteFrames bodySprite = ResourceLoader.CreateInstance(EntityResourcesFolder + model.BodySprites.DefaultSprite, Entity.Name + "DefaultSpriteBodyShowcase") as SpriteFrames;
     ChangeBody(bodySprite);
+  }
+
+  public void SetBody(SerializableAnimationBody body)
+  {
+    foreach (var item in body.ResourcePathByPart)
+    {
+      SpriteFrames partSprite = ResourceLoader.CreateInstance(item.Value, Entity.Name + item.Key + "Sprite") as SpriteFrames;
+      Entity.AnimationBody.ChangePart(item.Key, partSprite);
+    }
+  }
+
+  public void SetCustomBody()
+  {
+    if (CustomBody is not null)
+    {
+      SetBody(CustomBody);
+    }
   }
 }
