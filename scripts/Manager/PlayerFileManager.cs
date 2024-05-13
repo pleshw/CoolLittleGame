@@ -30,9 +30,9 @@ public partial class PlayerFileManager : SaveFilesManager
     return CreateNewSaveFile(worldFolderName, "player", JsonSerializer.Serialize(playerModel, typeof(SerializableEntity), GameJsonContext.Default));
   }
 
-  public void LoadPlayerFromSaveFile()
+  public Entity GetPlayerFromSaveFile()
   {
-    var test = GameFilesManager.GetFileDeserialized<SerializableEntity>(MainScene.WorldFileManager.CurrentWorldSaveFolder, "player.json");
-    Entity player = new(test);
+    SerializableEntity serializableEntity = GameFilesManager.GetFileDeserialized<SerializableEntity>(MainScene.WorldFileManager.CurrentWorldSaveFolder, "player.json");
+    return new Entity(serializableEntity);
   }
 }

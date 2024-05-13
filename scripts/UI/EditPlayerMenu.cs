@@ -64,7 +64,7 @@ public partial class EditPlayerMenu : Control
 
 			await MainScene.GameSceneManager.SetGameScene(FilePath.Game.Stage1);
 
-			MainScene.PlayerFileManager.LoadPlayerFromSaveFile();
+			MainScene.PlayerFileManager.GetPlayerFromSaveFile();
 		};
 	}
 }
