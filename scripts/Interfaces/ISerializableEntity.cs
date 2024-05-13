@@ -21,5 +21,5 @@ public interface ISerializableEntity
   SerializableAnimationBody Body { get; }
 
   [JsonInclude]
-  EntityDefaultAttributes Attributes { get; set; }
+  EntityAttributes Attributes { get; set; }
 }

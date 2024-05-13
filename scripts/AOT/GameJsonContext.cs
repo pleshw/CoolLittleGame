@@ -18,7 +18,7 @@ namespace Manager;
 [JsonSerializable(typeof(ISerializableEntity)), JsonSerializable(typeof(List<ISerializableEntity>))]
 [JsonSerializable(typeof(SerializableEntity)), JsonSerializable(typeof(List<SerializableEntity>))]
 [JsonSerializable(typeof(ISerializableAnimationBody)), JsonSerializable(typeof(List<ISerializableAnimationBody>))]
-[JsonSerializable(typeof(EntityDefaultAttributes)), JsonSerializable(typeof(List<EntityDefaultAttributes>))]
+[JsonSerializable(typeof(EntityAttributes)), JsonSerializable(typeof(List<EntityAttributes>))]
 [JsonSerializable(typeof(ISerializableEntity)), JsonSerializable(typeof(List<ISerializableEntity>))]
 [JsonSerializable(typeof(NPCInteraction)), JsonSerializable(typeof(List<NPCInteraction>))]
 [JsonSerializable(typeof(DialogueNode)), JsonSerializable(typeof(List<DialogueNode>))]

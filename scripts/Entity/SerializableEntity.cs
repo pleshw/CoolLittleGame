@@ -24,7 +24,7 @@ public class SerializableEntity() : ISerializableEntity
   public SerializableAnimationBody Body { get; set; }
 
   [JsonInclude]
-  public EntityDefaultAttributes Attributes { get; set; } = new();
+  public EntityAttributes Attributes { get; set; } = new();
 
   public static implicit operator SerializableEntity(Entity entity)
   {

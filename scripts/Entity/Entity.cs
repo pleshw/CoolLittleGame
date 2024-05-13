@@ -28,7 +28,7 @@ public partial class Entity : Node2D, ISerializableEntity
     }
   }
 
-  public EntityDefaultAttributes Attributes { get; set; } = new();
+  public EntityAttributes Attributes { get; set; }
 
   public MovementController MovementController;
   public CombatController CombatController;

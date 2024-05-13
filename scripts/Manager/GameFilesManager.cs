@@ -71,14 +71,14 @@ public static class GameFilesManager
 
   public static void TestSerializeDeserialize()
   {
-    var subject = new EntityDefaultAttributes();
-    var test = JsonSerializer.Serialize(subject);
-    var test2 = JsonSerializer.Deserialize<EntityDefaultAttributes>(test);
-    var test3 = JsonSerializer.Deserialize<EntityDefaultAttributes>("""
+    // var subject = new EntityDefaultAttributes();
+    // var test = JsonSerializer.Serialize(subject);
+    // var test2 = JsonSerializer.Deserialize<EntityDefaultAttributes>(test);
+    var test3 = JsonSerializer.Deserialize<EntityAttributes>("""
         {
           "Attributes": {
               "Agility": {
-                "Points": 0,
+                "Points": 110,
                 "Name": "Agility",
                 "Abbreviation": "agi"
               },

@@ -1,43 +1,46 @@
 using System.Text.Json.Serialization;
-using Godot;
+using static Game.Attributes;
 
 namespace Game;
 
-public static partial class Attributes
+public record struct EntityAttributes
 {
-  public class Agility() : EntityAttribute()
+  [JsonInclude]
+  public Agility Agility { get; set; }
+
+  [JsonInclude]
+  public Dexterity Dexterity { get; set; }
+
+  [JsonInclude]
+  public Intelligence Intelligence { get; set; }
+
+  [JsonInclude]
+  public Luck Luck { get; set; }
+
+  [JsonInclude]
+  public Strength Strength { get; set; }
+
+  [JsonInclude]
+  public Vitality Vitality { get; set; }
+
+  public EntityAttributes()
   {
-    public override string Abbreviation { get; set; } = "agi";
-    public override string Name { get; set; } = "Agility";
+    Agility = new();
+    Dexterity = new();
+    Intelligence = new();
+    Luck = new();
+    Strength = new();
+    Vitality = new();
   }
 
-  public class Dexterity() : EntityAttribute()
+  [JsonConstructor]
+  public EntityAttributes(Agility Agility, Dexterity Dexterity, Intelligence Intelligence, Luck Luck, Strength Strength, Vitality Vitality)
   {
-    public override string Abbreviation { get; set; } = "dex";
-    public override string Name { get; set; } = "Dexterity";
-  }
-
-  public class Intelligence() : EntityAttribute()
-  {
-    public override string Abbreviation { get; set; } = "int";
-    public override string Name { get; set; } = "Intelligence";
-  }
-
-  public class Luck() : EntityAttribute()
-  {
-    public override string Abbreviation { get; set; } = "luk";
-    public override string Name { get; set; } = "Luck";
-  }
-
-  public class Strength() : EntityAttribute()
-  {
-    public override string Abbreviation { get; set; } = "str";
-    public override string Name { get; set; } = "Strength";
-  }
-
-  public class Vitality() : EntityAttribute()
-  {
-    public override string Abbreviation { get; set; } = "vit";
-    public override string Name { get; set; } = "Vitality";
+    this.Agility = Agility ?? new();
+    this.Dexterity = Dexterity ?? new();
+    this.Intelligence = Intelligence ?? new();
+    this.Luck = Luck ?? new();
+    this.Strength = Strength ?? new();
+    this.Vitality = Vitality ?? new();
   }
 }
