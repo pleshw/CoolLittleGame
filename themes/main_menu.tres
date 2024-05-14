@@ -13,6 +13,7 @@ border_color = Color(1, 1, 1, 1)
 bg_color = Color(0, 0, 0, 1)
 
 [resource]
+default_font = ExtResource("1_1rc8w")
 Label/fonts/font = ExtResource("1_1rc8w")
 TabContainer/constants/side_margin = 0
 TabContainer/font_sizes/font_size = 12

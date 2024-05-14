@@ -55,7 +55,7 @@ public partial class GameSceneManager : MainSceneManager<CanvasItem>
     MainScene.GameCanvasLayer.AddChild(LoadingScreen);
   }
 
-  public async Task SetGameScene(string scenePath)
+  public async Task SetGameScene(string scenePath, Action config = default)
   {
     HideUI();
     SetGameCamera();
@@ -69,12 +69,16 @@ public partial class GameSceneManager : MainSceneManager<CanvasItem>
 
     IsLoadingScene = true;
 
+    LoadingScreenStartEvent();
+
+    config?.Invoke();
+
     CurrentScene = await AsyncLoader.LoadNodeAsync<Node2D>(scenePath, ProgressReporter);
 
     Hint gameHint = HintMessages.LoadingScreen.Hints.Get();
 
     LoadingScreen.HintMessageLabel.Text = gameHint.Message;
-    await Task.Delay(TimeSpan.FromMilliseconds(gameHint.TimeInMs));
+    // await Task.Delay(TimeSpan.FromMilliseconds(gameHint.TimeInMs));
 
     CallDeferred(nameof(CompleteLoading));
   }

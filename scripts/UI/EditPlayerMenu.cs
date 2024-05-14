@@ -1,3 +1,4 @@
+using System;
 using System.Diagnostics.CodeAnalysis;
 using Game;
 using Godot;
@@ -23,6 +24,9 @@ public partial class EditPlayerMenu : Control
 	[Export]
 	public Button ConfirmButton { get; set; }
 
+	[Export]
+	public TextEdit PlayerNameInput { get; set; }
+
 
 	public PlayerCustomizationGrid PlayerCustomizationGrid { get; set; }
 
@@ -41,6 +45,15 @@ public partial class EditPlayerMenu : Control
 		base._Ready();
 		SetupButtons();
 		CallDeferred(nameof(SetPlayerPreview));
+
+		PlayerNameInput.TextChanged += () =>
+		{
+			if (PlayerNameInput.Text.Length > 25)
+			{
+				PlayerNameInput.Text = PlayerNameInput.Text[..Math.Min(PlayerNameInput.Text.Length, 25)];
+				PlayerNameInput.SetCaretColumn(PlayerNameInput.Text.Length);
+			}
+		};
 	}
 
 	public void SetPlayerPreview()
@@ -58,13 +71,14 @@ public partial class EditPlayerMenu : Control
 		BackButton.Pressed += MainScene.MenuManager.Back;
 		ConfirmButton.Pressed += async () =>
 		{
-			string worldSaveFileLocation = MainScene.WorldFileManager.CreateNewSaveFileAndSetCurrentWorld();
+			await MainScene.GameSceneManager.SetGameScene(FilePath.Game.Stage1, () =>
+			{
+				string worldSaveFileLocation = MainScene.WorldFileManager.CreateNewSaveFileAndSetCurrentWorld();
 
-			string playerSaveFileLocation = MainScene.PlayerFileManager.CreateNewPlayerSaveFile(PlayerPreviewModel);
+				string playerSaveFileLocation = MainScene.PlayerFileManager.CreateNewPlayerSaveFile(PlayerPreviewModel);
 
-			await MainScene.GameSceneManager.SetGameScene(FilePath.Game.Stage1);
-
-			MainScene.PlayerFileManager.GetPlayerFromSaveFile();
+				Entity playerEntity = MainScene.PlayerFileManager.GetPlayerFromSaveFile();
+			});
 		};
 	}
 }

@@ -1,18 +1,10 @@
 save file plans
-  - each world have it's own folder with save files for player, visited stages, NPCs that player has interacted
-  - player have the playerSaveFile with his info - lv, custom sprites, actual location, ongoing quests, mobs killed, npcs that the player interacted etc
   - NPCs have the npcSaveFile with - realized interactions and count, quests  
   - visited stages have the stageSaveFile with the info of what player changedPermanently, what he interacted with and how many of each mob he killed
 
-implement character customization
-  - instantiate the character 
-  - set the custom available sprites in a grid
-  - let the user select a custom sprites
-  - create save file with the custom character on confirm
-
 implement load game from file
-  - load the game scene from save file
   - load the character custom sprites from save file
   - load character current state from save file
   - load world state from save file
+  - load the game scene from save file
   - start the game 
