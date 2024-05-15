@@ -3,7 +3,7 @@ using System.Text.Json.Serialization;
 
 namespace Game;
 
-public record class WorldData
+public record class SerializableWorld
 {
   [JsonInclude]
   public required List<string> VisitedStages;

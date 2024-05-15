@@ -1,0 +1,26 @@
+{
+  "BodySprites": {
+    "DefaultSprite": "default_body.tres",
+    "SpriteList": [
+      "sheep_hat.tres"
+    ]
+  },
+  "HatSprites": {
+    "DefaultSprite": "empty_hat.tres",
+    "SpriteList": [
+      "sheep_hat.tres"
+    ]
+  },
+  "ShirtSprites": {
+    "DefaultSprite": "empty_shirt.tres",
+    "SpriteList": [
+      "sheep_hat.tres"
+    ]
+  },
+  "PantsSprites": {
+    "DefaultSprite": "empty_pants.tres",
+    "SpriteList": [
+      "sheep_hat.tres"
+    ]
+  }
+}

@@ -1,32 +1,65 @@
+using System.Diagnostics.CodeAnalysis;
 using System.Text.Json;
 using Game;
+using GameManager;
+using Utils;
 
 namespace Manager;
 
+[RequiresUnreferencedCode("")]
+[RequiresDynamicCode("")]
 public partial class WorldFileManager : SaveFilesManager
 {
-  public string CurrentWorldSaveFile = null;
-  public string CurrentWorldSaveFolder = null;
+  private string _currentWorldFile;
+  public string CurrentWorldSaveFile
+  {
+    get
+    {
+      return _currentWorldFile;
+    }
+    set
+    {
+      _currentWorldFile = value;
+      CurrentWorldData = GameFilesManager.GetFileDeserialized<SerializableWorld>(_currentWorldFile);
+    }
+  }
 
-  public readonly string NewWorldFolderBaseName = "world";
+  private string _currentWorldSaveFolder;
+  public string CurrentWorldSaveFolder
+  {
+    get
+    {
+      return _currentWorldSaveFolder;
+    }
+    set
+    {
+      _currentWorldSaveFolder = value;
+    }
+  }
+
+  public SerializableWorld CurrentWorldData;
+
+  public readonly string WorldFolderFileName = "world";
 
   public string CreateNewWorldFolder()
   {
-    return CreateNewSaveFolder(NewWorldFolderBaseName);
+    return CreateNewSaveFolder(WorldFolderFileName);
   }
 
   public string CreateNewSaveFile(out string newWorldFolderName)
   {
     newWorldFolderName = CreateNewWorldFolder();
-    return CreateNewSaveFile(newWorldFolderName, "world_data", JsonSerializer.Serialize(new WorldData
+    return CreateNewSaveFile(newWorldFolderName, WorldFolderFileName, JsonSerializer.Serialize(new SerializableWorld
     {
       VisitedStages = [],
       NPCInteraction = []
-    }, typeof(WorldData), GameJsonContext.Default));
+    }, typeof(SerializableWorld), GameJsonContext.Default));
   }
 
   public string CreateNewSaveFileAndSetCurrentWorld()
   {
-    return CurrentWorldSaveFile = CreateNewSaveFile(out CurrentWorldSaveFolder);
+    CurrentWorldSaveFile = CreateNewSaveFile(out string worldSaveFolder);
+    CurrentWorldSaveFolder = worldSaveFolder;
+    return CurrentWorldSaveFile;
   }
 }

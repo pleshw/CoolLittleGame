@@ -1,7 +1,8 @@
-[gd_scene load_steps=3 format=3 uid="uid://cq87v4q0n2mys"]
+[gd_scene load_steps=4 format=3 uid="uid://cq87v4q0n2mys"]
 
 [ext_resource type="Script" path="res://scripts/UI/EditPlayerMenu.cs" id="1_0sxji"]
 [ext_resource type="Theme" uid="uid://cd2jrhps4l0vx" path="res://themes/main_menu.tres" id="2_futv5"]
+[ext_resource type="PackedScene" uid="uid://bb48hewxean36" path="res://scenes/menus/starting_attributes.tscn" id="3_csn3c"]
 
 [node name="EditPlayer" type="Control" node_paths=PackedStringArray("PlayerPreviewPanel", "BackButton", "HBoxContainer", "ConfirmButton", "PlayerNameInput")]
 layout_mode = 3
@@ -38,19 +39,25 @@ metadata/_edit_use_anchors_ = true
 clip_contents = true
 custom_minimum_size = Vector2(0, 300)
 layout_mode = 1
-anchors_preset = 8
-anchor_left = 0.5
-anchor_top = 0.5
-anchor_right = 0.5
-anchor_bottom = 0.5
-offset_left = -470.0
-offset_top = -210.0
-offset_right = 470.0
-offset_bottom = 210.0
+anchors_preset = -1
+anchor_left = 0.0920139
+anchor_top = 0.175926
+anchor_right = 0.907986
+anchor_bottom = 0.824074
 grow_horizontal = 2
 grow_vertical = 2
-theme_override_constants/separation = 150
+theme_override_constants/separation = 20
 alignment = 1
+metadata/_edit_use_anchors_ = true
+
+[node name="MarginContainer2" type="MarginContainer" parent="HBoxContainer"]
+layout_mode = 2
+theme_override_constants/margin_top = 60
+theme_override_constants/margin_bottom = 60
+
+[node name="StartingAttributes" parent="HBoxContainer/MarginContainer2" instance=ExtResource("3_csn3c")]
+custom_minimum_size = Vector2(300, 0)
+layout_mode = 2
 
 [node name="MarginContainer" type="MarginContainer" parent="HBoxContainer"]
 layout_mode = 2

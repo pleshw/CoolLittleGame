@@ -1,7 +1,9 @@
 using System;
 using System.Text.RegularExpressions;
+using Game;
 using Generic;
 using Godot;
+using Main;
 
 namespace Utils;
 
@@ -79,7 +81,7 @@ public static partial class Extras
     Vector2 scaleFactor = new(sizeToFit.X / currentSize.X, sizeToFit.Y / currentSize.Y);
     animatedSprite.Scale = scaleFactor;
   }
-  
+
   public static Vector2 GetSize(this AnimatedSprite2D animatedSprite)
   {
     SpriteFrames spriteFrames = animatedSprite.SpriteFrames;
@@ -99,6 +101,27 @@ public static partial class Extras
   {
     return OnlyLettersAndNumbers().Replace(input, "");
   }
+
+  public static MainScene GetMainScene(this CanvasItem canvasItem)
+  {
+    return canvasItem.GetTree().Root.GetNode<MainScene>("MainScene");
+  }
+
+  public static MainScene GetMainScene(this Node node)
+  {
+    return node.GetTree().Root.GetNode<MainScene>("MainScene");
+  }
+
+  public static SerializableWorld GetCurrentWorldData(this CanvasItem canvasItem)
+  {
+    return canvasItem.GetMainScene().WorldFileManager.CurrentWorldData ?? throw new Exception("World not initialized. WorldFileManager.CurrentWorldData is null");
+  }
+
+  public static SerializableWorld GetCurrentWorldData(this Node node)
+  {
+    return node.GetMainScene().WorldFileManager.CurrentWorldData ?? throw new Exception("World not initialized. WorldFileManager.CurrentWorldData is null");
+  }
+
 
   [GeneratedRegex(@"[^a-zA-Z0-9]")]
   private static partial Regex OnlyLettersAndNumbers();

@@ -14,7 +14,15 @@ namespace GameManager;
 [RequiresDynamicCode("")]
 public static class GameFilesManager
 {
-  public static string UserData
+  public static string ResourceDataPath
+  {
+    get
+    {
+      return ProjectSettings.GlobalizePath("res://");
+    }
+  }
+
+  public static string CachedDataPath
   {
     get
     {
@@ -22,11 +30,11 @@ public static class GameFilesManager
     }
   }
 
-  public static void CreateFile(string fileName, string fileData)
+  public static void CreateFile(string folderPath, string fileName, string fileData)
   {
     try
     {
-      File.WriteAllText(Path.Join(UserData, fileName), fileData);
+      File.WriteAllText(Path.Join(folderPath, fileName), fileData);
     }
     catch (System.Exception err)
     {
@@ -34,31 +42,59 @@ public static class GameFilesManager
     }
   }
 
-  public static void CreateFile<T>(string fileName, T fileData)
+  public static void CreateCachedFile(string fileName, string fileData)
   {
-    CreateFile(fileName, JsonSerializer.Serialize(fileData, typeof(T), GameJsonContext.Default));
+    CreateFile(CachedDataPath, fileName, fileData);
   }
 
-  public static T GetFileDeserialized<T>(string fileName) where T : class
+  public static void CreateCachedFile<T>(string fileName, T fileData)
   {
-    return GetFileDeserialized<T>(UserData, fileName);
+    CreateCachedFile(fileName, JsonSerializer.Serialize(fileData, typeof(T), GameJsonContext.Default));
+  }
+
+  public static T GetCachedFileDeserialized<T>(string fileName) where T : class
+  {
+    return GetFileDeserialized<T>(CachedDataPath, fileName);
+  }
+
+
+  /// <summary>
+  /// usage
+  /// GameFilesManager.GetResourceFileDeserialized<SerializableSpriteModel>("data/", "mainSprites.json")
+  /// </summary>
+  /// <typeparam name="T"></typeparam>
+  /// <param name="folderPath"></param>
+  /// <param name="fileName"></param>
+  /// <returns></returns>
+  public static T GetResourceFileDeserialized<T>(string folderPath, string fileName) where T : class
+  {
+    return GetFileDeserialized<T>(Path.Join(ResourceDataPath, folderPath), fileName);
+  }
+
+  public static T GetResourceFileDeserialized<T>(string fileName) where T : class
+  {
+    return GetFileDeserialized<T>(ResourceDataPath, fileName);
   }
 
   public static T GetFileDeserialized<T>(string folderName, string fileName) where T : class
   {
+    return GetFileDeserialized<T>(Path.Join(folderName, fileName));
+  }
+
+
+  public static T GetFileDeserialized<T>(string filePath) where T : class
+  {
     T data;
 
-    fileName = Path.Join(folderName, fileName);
-
-    if (!File.Exists(fileName))
+    if (!File.Exists(filePath))
     {
-      GD.Print("File not found: " + fileName);
+      GD.Print("File not found: " + filePath);
       return default;
     }
 
     try
     {
-      string fileContent = File.ReadAllText(fileName);
+      string fileContent = File.ReadAllText(filePath);
       data = JsonSerializer.Deserialize<T>(fileContent);
       return data;
     }

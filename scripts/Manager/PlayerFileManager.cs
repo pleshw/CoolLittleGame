@@ -4,6 +4,7 @@ using Game;
 using GameManager;
 using Interfaces;
 using Main;
+using Utils;
 
 namespace Manager;
 
@@ -30,14 +31,14 @@ public partial class PlayerFileManager : SaveFilesManager
     return CreateNewSaveFile(worldFolderName, "player", JsonSerializer.Serialize(playerModel, typeof(SerializableEntity), GameJsonContext.Default));
   }
 
-  public static Entity GetPlayerFromSaveFile(string worldFolderPath)
+  public static Player GetPlayerFromSaveFile(string worldFolderPath)
   {
     SerializableEntity serializableEntity = GameFilesManager.GetFileDeserialized<SerializableEntity>(worldFolderPath, "player.json");
-    return new Entity(serializableEntity);
+    return new Player(serializableEntity);
   }
 
-  public Entity GetPlayerFromSaveFile()
+  public Player GetPlayerFromSaveFile()
   {
-    return GetPlayerFromSaveFile(MainScene.WorldFileManager.CurrentWorldSaveFolder);
+    return GetPlayerFromSaveFile(this.GetMainScene().WorldFileManager.CurrentWorldSaveFolder);
   }
 }
