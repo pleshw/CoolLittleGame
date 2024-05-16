@@ -47,7 +47,7 @@ public partial class PlayerCustomizationGrid : TabContainer
   public PlayerCustomizationGrid(Entity playerModel)
   {
     PlayerModel = playerModel;
-    SpriteModel = GameFilesManager.GetResourceFileDeserialized<SerializableSpriteModel>("data/", "mainSprites.json");
+    SpriteModel = GameFilesManager.GetResourceFileDeserialized<SerializableSpriteModel>("data/sprites", "mainSprites.json");
     (BodySpritesInfo, HatSpritesInfo, ShirtSpritesInfo, PantsSpritesInfo) = SpriteModel;
 
     TabGridBodies = new GridContainer

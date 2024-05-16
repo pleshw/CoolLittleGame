@@ -8,8 +8,6 @@ public record class SerializableStage
   [JsonInclude]
   public required bool Visited;
 
-  [JsonInclude]
-  public required List<SerializableNPC> NPCInteraction;
 
   [JsonInclude]
   public required List<SerializableNPC> NPCs;

@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using System.Numerics;
 using System.Text.Json.Serialization;
 
 namespace Game;
@@ -16,4 +17,7 @@ public class SerializableNPC : SerializableEntity
 
   [JsonInclude]
   public required NPCInteraction Interaction;
+
+  [JsonInclude]
+  public required Vector2 CurrentTile;
 }

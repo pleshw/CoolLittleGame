@@ -36,15 +36,25 @@ public partial class SaveFilesManager : Node
 
   public static string CreateNewSaveFile(string validFolderPath, string fileName, string dataAsJson)
   {
-    string lastSaveFile = GetLastSaveFileName(validFolderPath, fileName);
-
-    string newSaveFileName = lastSaveFile != null ? $"{fileName}{GetFileNumber(lastSaveFile) + 1}.json" : $"{fileName}.json";
+    // string lastSaveFile = GetLastSaveFileName(validFolderPath, fileName);
+    // string newSaveFileName = lastSaveFile != null ? $"{fileName}{GetFileNumber(lastSaveFile) + 1}.json" : $"{fileName}.json";
+    string newSaveFileName = $"{fileName}.json";
 
     string filePath = Path.Join(validFolderPath, newSaveFileName);
 
     File.WriteAllText(filePath, dataAsJson);
 
     return filePath;
+  }
+
+  public static void EditSaveFile(string filePath, string newDataAsJson)
+  {
+    if (!File.Exists(filePath))
+    {
+      throw new FileNotFoundException("The specified file does not exist.", filePath);
+    }
+
+    File.WriteAllText(filePath, newDataAsJson);
   }
 
   protected static void EnsureDirectoryExists(string parentFolderPath, string folderName, out string folderPath)

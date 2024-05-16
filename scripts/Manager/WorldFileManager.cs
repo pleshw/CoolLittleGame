@@ -1,4 +1,5 @@
 using System.Diagnostics.CodeAnalysis;
+using System.IO;
 using System.Text.Json;
 using Game;
 using GameManager;
@@ -10,7 +11,7 @@ namespace Manager;
 [RequiresDynamicCode("")]
 public partial class WorldFileManager : SaveFilesManager
 {
-  private string _currentWorldFile;
+  private string _currentWorldFile = null;
   public string CurrentWorldSaveFile
   {
     get
@@ -20,11 +21,10 @@ public partial class WorldFileManager : SaveFilesManager
     set
     {
       _currentWorldFile = value;
-      CurrentWorldData = GameFilesManager.GetFileDeserialized<SerializableWorld>(_currentWorldFile);
     }
   }
 
-  private string _currentWorldSaveFolder;
+  private string _currentWorldSaveFolder = null;
   public string CurrentWorldSaveFolder
   {
     get
@@ -37,7 +37,28 @@ public partial class WorldFileManager : SaveFilesManager
     }
   }
 
-  public SerializableWorld CurrentWorldData;
+  private SerializableWorld _currentWorldData = null;
+  public SerializableWorld CurrentWorldData
+  {
+    get
+    {
+      if (_currentWorldData != null)
+      {
+        return _currentWorldData;
+      }
+
+      if (_currentWorldFile == null)
+      {
+        throw new System.Exception("World not initialized.");
+      }
+
+      return _currentWorldData = GameFilesManager.GetFileDeserialized<SerializableWorld>(_currentWorldFile);
+    }
+    set
+    {
+      _currentWorldData = value;
+    }
+  }
 
   public readonly string WorldFolderFileName = "world";
 
@@ -46,20 +67,28 @@ public partial class WorldFileManager : SaveFilesManager
     return CreateNewSaveFolder(WorldFolderFileName);
   }
 
-  public string CreateNewSaveFile(out string newWorldFolderName)
+  public SerializableWorld CreateNewSaveFile(out string newWorldFolderName, out string filePath)
   {
     newWorldFolderName = CreateNewWorldFolder();
-    return CreateNewSaveFile(newWorldFolderName, WorldFolderFileName, JsonSerializer.Serialize(new SerializableWorld
+
+    SerializableWorld serializableWorldInstance = new SerializableWorld
     {
+      WorldSaveFile = Path.Join(newWorldFolderName, WorldFolderFileName),
+      WorldSaveFolder = newWorldFolderName,
       VisitedStages = [],
       NPCInteraction = []
-    }, typeof(SerializableWorld), GameJsonContext.Default));
+    };
+
+    filePath = CreateNewSaveFile(newWorldFolderName, WorldFolderFileName, JsonSerializer.Serialize(serializableWorldInstance, typeof(SerializableWorld), GameJsonContext.Default));
+
+    return serializableWorldInstance;
   }
 
   public string CreateNewSaveFileAndSetCurrentWorld()
   {
-    CurrentWorldSaveFile = CreateNewSaveFile(out string worldSaveFolder);
+    CurrentWorldData = CreateNewSaveFile(out string worldSaveFolder, out string worldSaveFile);
     CurrentWorldSaveFolder = worldSaveFolder;
+    CurrentWorldSaveFile = worldSaveFile;
     return CurrentWorldSaveFile;
   }
 }
