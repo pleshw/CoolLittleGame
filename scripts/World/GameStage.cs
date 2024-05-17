@@ -4,20 +4,29 @@ using Utils;
 
 namespace Game;
 
-public abstract partial class GameStage : Node2D
+public partial class GameStage(Node2D stageNode, string sceneFilePath)
 {
+  public readonly string SceneFilePath = sceneFilePath;
+  public readonly Node2D StageNode = stageNode;
+
   public void Init()
   {
-    var stageConfig = this.GetCurrentWorldData().VisitedStages.Contains(SceneFilePath) ? GetStageConfigFromFile() : GetInitialStageConfig();
-    SetStageConfig();
+    var stageConfig = StageNode.GetCurrentWorldData().VisitedStages.Contains(SceneFilePath) ? GetStageConfigFromFile() : GetInitialStageConfig();
+    SetStageConfig(stageConfig);
     LoadNPCs();
   }
 
-  public abstract SerializableStage GetInitialStageConfig();
+  public virtual SerializableStage GetInitialStageConfig()
+  {
+    throw new NotImplementedException();
+  }
 
-  public abstract SerializableStage GetStageConfigFromFile();
+  public virtual SerializableStage GetStageConfigFromFile()
+  {
+    throw new NotImplementedException();
+  }
 
-  private void SetStageConfig()
+  private void SetStageConfig(SerializableStage stageConfig)
   {
     throw new NotImplementedException();
   }

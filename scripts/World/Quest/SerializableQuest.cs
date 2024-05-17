@@ -5,7 +5,6 @@ namespace Game;
 
 public record class Quest
 {
-
   [JsonInclude]
   public required string Title;
 

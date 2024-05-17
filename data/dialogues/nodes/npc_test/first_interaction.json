@@ -1,0 +1,22 @@
+{
+  "IsAvailableForPlayer": true,
+  "Message": "Hey little girl, what are you doing in a dirty place like this?",
+  "SpeakersNodeNames": [
+    "NPCTest",
+    "NPCTest2"
+  ],
+  "ListenersNodeNames": [
+    "Player"
+  ],
+  "OptionNodes": [
+    {
+      "ButtonMessage": "I'm lost",
+      "DialogueNode": "res://data/dialogues/nodes/npc_test/"
+    },
+    {
+      "ButtonMessage": "Who's asking?",
+      "DialogueNode": "res://data/dialogues/nodes/npc_test/"
+    }
+  ],
+  "QuestsEnabledOnComplete": []
+}

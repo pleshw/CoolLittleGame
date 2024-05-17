@@ -5,6 +5,8 @@ namespace Game;
 
 public record class DialogueNode
 {
+  [JsonInclude]
+  public required string NodePath;
 
   [JsonInclude]
   public required bool IsAvailableForPlayer;
@@ -13,13 +15,13 @@ public record class DialogueNode
   public required string Message;
 
   [JsonInclude]
-  public required List<string> Speakers;
+  public required List<string> SpeakersNodeNames;
 
   [JsonInclude]
-  public required List<string> Listeners;
+  public required List<string> ListenersNodeNames;
 
   [JsonInclude]
-  public required List<DialogueNode> Options;
+  public required List<string> Options;
 
   [JsonInclude]
   public required List<Quest> QuestsEnabledOnComplete;

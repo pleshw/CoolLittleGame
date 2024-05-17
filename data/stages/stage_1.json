@@ -1,0 +1,36 @@
+{
+  "NodePath": "stage_1.tscn",
+  "Name": "Test City",
+  "Exits": [
+    {
+      "DestinationPath": "house_1_stage_1.json",
+      "Position": {
+        "X": 2,
+        "Y": 3
+      }
+    },
+    {
+      "DestinationPath": "house_2_stage_2.json",
+      "Position": {
+        "X": 2,
+        "Y": 3
+      }
+    }
+  ],
+  "NPC": [
+    {
+      "ConfigPath": "npc_test.json",
+      "Position": {
+        "X": 1,
+        "Y": 3
+      }
+    },
+    {
+      "ConfigPath": "npc_test2.json",
+      "Position": {
+        "X": 2,
+        "Y": 5
+      }
+    }
+  ]
+}

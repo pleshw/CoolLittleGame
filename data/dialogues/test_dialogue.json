@@ -1,0 +1,5 @@
+{
+  "DialogueScenePath": "test_dialogue.tscn",
+  "FirstInteractionNode": "res://data/dialogues/nodes/npc_test/first_interaction.json",
+  "DefaultInteractionNode": "res://data/dialogues/nodes/npc_test/default_interaction.json"
+}

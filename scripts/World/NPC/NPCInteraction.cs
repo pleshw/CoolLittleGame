@@ -6,8 +6,8 @@ namespace Game;
 public record class NPCInteraction
 {
   [JsonInclude]
-  public required List<DialogueNode> CompletedDialogues;
+  public required List<string> NodePathCompletedDialogues;
 
   [JsonInclude]
-  public required List<DialogueNode> NotSeenDialogues;
+  public required List<string> NodePathNotSeenDialogues;
 }

@@ -60,7 +60,7 @@ public static class GameFilesManager
 
   /// <summary>
   /// usage
-  /// GameFilesManager.GetResourceFileDeserialized<SerializableSpriteModel>("data/", "mainSprites.json")
+  /// GameFilesManager.GetResourceFileDeserialized<SerializableSpriteModel>("data/", "sprite_list.json")
   /// </summary>
   /// <typeparam name="T"></typeparam>
   /// <param name="folderPath"></param>

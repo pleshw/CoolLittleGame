@@ -64,8 +64,8 @@ public partial class GameSceneManager : MainSceneManager<CanvasItem>
     LoadingScreen.Show();
     LoadingScreen.Visible = true;
 
-    CurrentStage?.Hide();
-    CurrentStage?.QueueFree();
+    CurrentStage.StageNode?.Hide();
+    CurrentStage.StageNode?.QueueFree();
     CurrentStage = null;
 
     IsLoadingScene = true;
@@ -74,7 +74,9 @@ public partial class GameSceneManager : MainSceneManager<CanvasItem>
 
     config?.Invoke();
 
-    CurrentStage = await AsyncLoader.LoadNodeAsync<Node2D>(scenePath, ProgressReporter);
+    var stageNode = await AsyncLoader.LoadNodeAsync<Node2D>(scenePath, ProgressReporter);
+
+    CurrentStage = new(stageNode, scenePath);
 
     Hint gameHint = HintMessages.LoadingScreen.Hints.Get();
 
@@ -86,15 +88,15 @@ public partial class GameSceneManager : MainSceneManager<CanvasItem>
 
   public void CompleteLoading()
   {
-    MainScene.Game.AddChild(CurrentStage);
+    MainScene.Game.AddChild(CurrentStage.StageNode);
 
     LoadingScreen.ResetProgress();
 
     LoadingScreen.Hide();
     LoadingScreen.Visible = false;
 
-    CurrentStage.Show();
-    CurrentStage.Visible = true;
+    CurrentStage.StageNode.Show();
+    CurrentStage.StageNode.Visible = true;
 
     IsLoadingScene = false;
   }

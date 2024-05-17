@@ -1,0 +1,30 @@
+{
+  "IsAvailableForPlayer": true,
+  "Message": "Ok just go to the left path and you will be at the foot of the great mountain",
+  "SpeakersNodeNames": [
+    "NPCTest",
+    "NPCTest2"
+  ],
+  "ListenersNodeNames": [
+    "Player"
+  ],
+  "OptionNodes": [
+    {
+      "ButtonMessage": "Ok!",
+      "DialogueNode": ""
+    }
+  ],
+  "QuestsEnabledOnComplete": [
+    {
+      "Title": "Fantastic first mission",
+      "Description": "Go to the left path to find out",
+      "QuestSteps": [
+        {
+          "Title": "Go left",
+          "Description": "Find out",
+          "IsCompleted": false
+        }
+      ]
+    }
+  ]
+}
