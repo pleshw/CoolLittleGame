@@ -105,46 +105,4 @@ public static class GameFilesManager
     }
   }
 
-  public static void TestSerializeDeserialize()
-  {
-    // var subject = new EntityDefaultAttributes();
-    // var test = JsonSerializer.Serialize(subject);
-    // var test2 = JsonSerializer.Deserialize<EntityDefaultAttributes>(test);
-    var test3 = JsonSerializer.Deserialize<EntityAttributes>("""
-        {
-          "Attributes": {
-              "Agility": {
-                "Points": 110,
-                "Name": "Agility",
-                "Abbreviation": "agi"
-              },
-              "Dexterity": {
-                "Points": 0,
-                "Name": "Dexterity",
-                "Abbreviation": "dex"
-              },
-              "Intelligence": {
-                "Points": 0,
-                "Name": "Intelligence",
-                "Abbreviation": "int"
-              },
-              "Luck": {
-                "Points": 0,
-                "Name": "Luck",
-                "Abbreviation": "luk"
-              },
-              "Strength": {
-                "Points": 0,
-                "Name": "Strength",
-                "Abbreviation": "str"
-              },
-              "Vitality": {
-                "Points": 0,
-                "Name": "Vitality",
-                "Abbreviation": "vit"
-              }
-          }
-        }
-      """);
-  }
 }

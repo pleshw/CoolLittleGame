@@ -3,7 +3,7 @@ using System.Text.Json.Serialization;
 
 namespace Game;
 
-public record class NPCInteraction
+public record class SerializableInteraction
 {
   [JsonInclude]
   public required List<string> NodePathCompletedDialogues;

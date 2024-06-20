@@ -3,7 +3,7 @@ using System.Text.Json.Serialization;
 
 namespace Game;
 
-public record class DialogueNode
+public record class SerializableDialogueNode
 {
   [JsonInclude]
   public required string NodePath;
@@ -24,5 +24,5 @@ public record class DialogueNode
   public required List<string> Options;
 
   [JsonInclude]
-  public required List<Quest> QuestsEnabledOnComplete;
+  public required List<SerializableQuest> QuestsEnabledOnComplete;
 }

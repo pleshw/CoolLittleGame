@@ -16,7 +16,7 @@ public class SerializableNPC : SerializableEntity
   public required bool PlayerTalked;
 
   [JsonInclude]
-  public required NPCInteraction Interaction;
+  public required SerializableInteraction Interaction;
 
   [JsonInclude]
   public required Vector2 CurrentTile;

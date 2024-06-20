@@ -1,10 +1,10 @@
 namespace Game;
 
-public abstract partial class NPC(NPCInteraction InteractionState) : Entity
+public abstract partial class NPC(SerializableInteraction InteractionState) : Entity
 {
   public abstract bool PlayerCanInteractWith { get; set; }
 
-  public NPCInteraction Interaction = InteractionState;
+  public SerializableInteraction Interaction = InteractionState;
 
   public override void _Ready()
   {

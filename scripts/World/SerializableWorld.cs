@@ -15,5 +15,5 @@ public record class SerializableWorld
   public required List<string> VisitedStages;
 
   [JsonInclude]
-  public required List<NPCInteraction> NPCInteraction;
+  public required List<SerializableInteraction> NPCInteraction;
 }

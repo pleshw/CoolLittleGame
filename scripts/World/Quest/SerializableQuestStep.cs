@@ -2,8 +2,10 @@ using System.Text.Json.Serialization;
 
 namespace Game;
 
-public record class QuestStep
+public record class SerializableQuestStep
 {
+  [JsonInclude]
+  public required string Id;
 
   [JsonInclude]
   public required string Title;

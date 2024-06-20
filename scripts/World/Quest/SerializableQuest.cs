@@ -3,8 +3,11 @@ using System.Text.Json.Serialization;
 
 namespace Game;
 
-public record class Quest
+public record class SerializableQuest
 {
+  [JsonInclude]
+  public required string Id;
+
   [JsonInclude]
   public required string Title;
 
@@ -12,5 +15,5 @@ public record class Quest
   public required string Description;
 
   [JsonInclude]
-  public required List<QuestStep> QuestSteps;
+  public required List<SerializableQuestStep> QuestSteps;
 }
